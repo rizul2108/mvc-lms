@@ -20,7 +20,11 @@ func Start() {
 	r.HandleFunc("/adminBooks", controller.AdminBooks).Methods("GET")
 	r.HandleFunc("/makeAdmin", controller.MakeAdmin).Methods("GET")
 	r.HandleFunc("/admin/add_book", controller.AddNewBook).Methods("POST")
+	r.HandleFunc("/client/books", controller.ClientBooks).Methods("GET")
 	r.HandleFunc("/admin/addBook", controller.AddBook).Methods("GET")
 	r.HandleFunc("/makeAdmin", controller.AddAdmin).Methods("POST")
+	r.HandleFunc("/addQty", controller.AddQuantity).Methods("POST")
+	r.HandleFunc("/delete", controller.DecreaseQuantity).Methods("POST")
+	r.HandleFunc("/issueBook", controller.AddRequest).Methods("POST")
 	http.ListenAndServe(":9000", r)
 }

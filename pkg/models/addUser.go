@@ -46,12 +46,10 @@ func AddUser(username, password, passwordC, fullname, user_type string) (string,
 		return "", "Internal Server Error 4"
 	}
 
-	// Generate a JWT token
-	jwt, err := generateToken(username)
+	jwt, err := GenerateToken(username)
 	if err != nil {
 		return "", "Error in producing token"
 	}
-	// Set the token as a cookie
 	return jwt, ""
 
 }

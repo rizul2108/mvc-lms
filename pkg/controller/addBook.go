@@ -14,7 +14,6 @@ func AddBook(writer http.ResponseWriter, request *http.Request) {
 	t.Execute(writer, nil)
 }
 func AddNewBook(w http.ResponseWriter, r *http.Request) {
-
 	title := r.FormValue("title")
 	author := r.FormValue("author")
 	qtyStr := r.FormValue("quantity")

@@ -33,7 +33,7 @@ func LoginUser(username, password string) (string, string, string) {
 		return "", "", "Invalid Password"
 	}
 
-	jwtToken, err := generateToken(username)
+	jwtToken, err := GenerateToken(username)
 	if err != nil {
 		return "", "", "Error in producing token"
 	}

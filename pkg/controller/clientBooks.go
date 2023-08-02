@@ -5,10 +5,23 @@ import (
 	"mvc-go/pkg/models"
 	"mvc-go/pkg/views"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func Profile(w http.ResponseWriter, r *http.Request) {
+func ClientBooks(writer http.ResponseWriter, request *http.Request) {
+	books, err := models.FetchBooks()
+	if err != nil {
+		http.Error(writer, "Database error", http.StatusInternalServerError)
+		return
+	}
+	t := views.ClientBooksPage()
+	writer.WriteHeader(http.StatusOK)
+	t.Execute(writer, books)
+}
+
+func AddRequest(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookID")
 	cookie, err := r.Cookie("jwt")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -18,20 +31,20 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
+	ID, err := strconv.Atoi(bookID)
+	fmt.Println(bookID)
 	tokenString := strings.TrimSpace(cookie.Value)
 	claims, err := models.VerifyToken(tokenString)
 	if err != nil {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
+
 	username := claims.Username
-	ReqList, error := models.FetchRequests(username)
+	error := models.AddRequest(ID, username)
 	if error != "" {
 		fmt.Println(error)
-	} else {
-		t := views.ProfilePage()
-		w.WriteHeader(http.StatusOK)
-		t.Execute(w, ReqList)
 	}
+	http.Redirect(w, r, "/client/books", http.StatusSeeOther)
 
 }

@@ -16,3 +16,29 @@ func AdminBooks(writer http.ResponseWriter, request *http.Request) {
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, books)
 }
+func AddQuantity(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookID")
+	quantity := r.FormValue("quantity")
+	err := models.AddQuantity(bookID, quantity)
+	if err != "" {
+		t := views.MakeAdminPage()
+		w.WriteHeader(http.StatusOK)
+		t.Execute(w, err)
+	} else {
+		http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+	}
+
+}
+func DecreaseQuantity(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookID")
+	quantity := r.FormValue("quantity")
+	err := models.DecreaseQuantity(bookID, quantity)
+	if err != "" {
+		t := views.MakeAdminPage()
+		w.WriteHeader(http.StatusOK)
+		t.Execute(w, err)
+	} else {
+		http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+	}
+
+}

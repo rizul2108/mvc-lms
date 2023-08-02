@@ -7,7 +7,7 @@ import (
 
 func FetchBooks() ([]types.Book, error) {
 	db, err := Connection()
-	rows, err := db.Query("SELECT book_id, title, author, quantity FROM books")
+	rows, err := db.Query("SELECT book_id, title, author, quantity FROM books where quantity>0")
 	if err != nil {
 		return nil, err
 	}

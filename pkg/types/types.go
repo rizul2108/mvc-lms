@@ -13,3 +13,9 @@ type Book struct {
 	Author   string `json:"author"`
 	ID       int    `json:"id"`
 }
+
+type Request struct {
+	BookID  string
+	State   string
+	ReqType string
+}
