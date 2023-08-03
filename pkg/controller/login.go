@@ -17,7 +17,6 @@ func LogIn(writer http.ResponseWriter, request *http.Request) {
 func LoginUser(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
-	fmt.Println(password)
 	jwToken, userType, err := models.LoginUser(username, password)
 	if err != "" {
 		fmt.Println(err)

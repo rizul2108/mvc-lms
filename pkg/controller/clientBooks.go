@@ -24,15 +24,9 @@ func AddRequest(w http.ResponseWriter, r *http.Request) {
 	bookID := r.FormValue("bookID")
 	cookie, err := r.Cookie("jwt")
 	if err != nil {
-		if err == http.ErrNoCookie {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 	ID, err := strconv.Atoi(bookID)
-	fmt.Println(bookID)
 	tokenString := strings.TrimSpace(cookie.Value)
 	claims, err := models.VerifyToken(tokenString)
 	if err != nil {

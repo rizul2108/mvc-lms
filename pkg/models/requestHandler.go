@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 )
 

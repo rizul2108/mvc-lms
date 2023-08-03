@@ -2,8 +2,6 @@ package models
 
 import (
 	"golang.org/x/crypto/bcrypt"
-	// "html/template"
-	"fmt"
 )
 
 func hashPassword(password string) (string, error) {
@@ -39,7 +37,6 @@ func AddUser(username, password, passwordC, fullname, user_type string) (string,
 	if err != nil {
 		return "", "Internal Server Error 3"
 	}
-	fmt.Println(username)
 
 	_, err = db.Exec(`INSERT INTO users (username, full_name,hash,type) VALUES (?, ?, ?,?)`, username, fullname, hashedPassword, user_type)
 	if err != nil {

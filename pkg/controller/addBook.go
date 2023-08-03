@@ -8,10 +8,10 @@ import (
 	"strconv"
 )
 
-func AddBook(writer http.ResponseWriter, request *http.Request) {
+func AddBook(w http.ResponseWriter, request *http.Request) {
 	t := views.AddBookPage()
-	writer.WriteHeader(http.StatusOK)
-	t.Execute(writer, nil)
+	w.WriteHeader(http.StatusOK)
+	t.Execute(w, nil)
 }
 func AddNewBook(w http.ResponseWriter, r *http.Request) {
 	title := r.FormValue("title")

@@ -2,7 +2,7 @@ package api
 
 import (
 	"mvc-go/pkg/controller"
-	// "mvc-go/pkg/models"
+	"mvc-go/pkg/models"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -10,6 +10,9 @@ import (
 
 func Start() {
 	r := mux.NewRouter()
+	r.Use(models.TokenMiddleware)
+
+	//client Routes
 	r.HandleFunc("/", controller.Welcome).Methods("GET")
 	r.HandleFunc("/home", controller.Home).Methods("GET")
 	r.HandleFunc("/signup", controller.SignUp).Methods("GET")
@@ -22,6 +25,7 @@ func Start() {
 	r.HandleFunc("/delReq", controller.DeleteRequest).Methods("POST")
 	r.HandleFunc("/retBook", controller.ReturnBook).Methods("POST")
 
+	//admin Routes
 	r.HandleFunc("/addQty", controller.AddQuantity).Methods("POST")
 	r.HandleFunc("/delete", controller.DecreaseQuantity).Methods("POST")
 	r.HandleFunc("/acceptRequest", controller.AcceptRequest).Methods("POST")
@@ -32,6 +36,8 @@ func Start() {
 	r.HandleFunc("/admin/add_book", controller.AddNewBook).Methods("POST")
 	r.HandleFunc("/admin/books", controller.AdminBooks).Methods("GET")
 	r.HandleFunc("/makeAdmin", controller.MakeAdmin).Methods("GET")
+
+	r.HandleFunc("/logout", controller.Logout)
 
 	http.ListenAndServe(":9000", r)
 }

@@ -40,9 +40,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <a type="submit" class="btn-primary btn mx-2" href="/client/books" >
-              View Available Books
-            </a>
+          <a type="submit" class="btn-primary btn mx-2" href="/client/books">
+            View Available Books
+          </a>
           <form action="/logout" method="GET">
             <button type="submit" class="btn-primary btn mx-2">Log Out</button>
           </form>
@@ -81,7 +81,7 @@
                     type="hidden"
                     name="reqID"
                     class="form-control"
-                    value={{.RequestID}}
+                    value="{{.RequestID}}"
                   />
                   <button
                     type="submit"
@@ -99,7 +99,7 @@
                     type="hidden"
                     name="reqID"
                     class="form-control"
-                    value={{.RequestID}}
+                    value="{{.RequestID}}"
                   />
                   <button
                     type="submit"

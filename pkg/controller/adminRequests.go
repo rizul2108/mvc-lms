@@ -9,6 +9,7 @@ import (
 )
 
 func AdminRequests(w http.ResponseWriter, r *http.Request) {
+
 	ReqList, error := models.FetchAllRequests()
 	if error != "" {
 		fmt.Println(error)
