@@ -15,7 +15,10 @@ type Book struct {
 }
 
 type Request struct {
-	BookID  string
-	State   string
-	ReqType string
+	RequestID int
+	BookID    int
+	State     string
+	ReqType   string
+	BookTitle string
+	OwnerName string
 }

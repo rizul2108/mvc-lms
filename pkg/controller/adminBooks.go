@@ -25,7 +25,7 @@ func AddQuantity(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, err)
 	} else {
-		http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+		http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 	}
 
 }
@@ -38,7 +38,7 @@ func DecreaseQuantity(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, err)
 	} else {
-		http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+		http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 	}
 
 }

@@ -31,7 +31,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		if userType == "client" {
 			http.Redirect(w, r, "/profile", http.StatusSeeOther)
 		} else {
-			http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+			http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 		}
 	}
 }

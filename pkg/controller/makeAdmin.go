@@ -25,6 +25,6 @@ func AddAdmin(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, ErrorMessage)
 	} else {
 		fmt.Println(str)
-		http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+		http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 	}
 }

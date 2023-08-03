@@ -29,21 +29,19 @@
 				>
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<form action="/makeAdmin" method="GET">
-					<input type="hidden" name="username" value="<%= username %>" />
-					<button type="submit" class="btn-primary btn">
+					<a type="submit" class="btn-primary btn" href="/makeAdmin">
 						Make New Admin
-					</button>
-				</form>
+					</a>
 				<form action="/logout" method="GET">
 					<input type="hidden" name="username" value="<%=username%>" />
 					<button type="submit" class="btn-primary btn">
 						Logout
 					</button>
-				</form>			</div>
+				</form>			
+			</div>
 		</nav>
 		<div class="container">
-			<h1 class="text-center mt-3 mb-3"><%= title %></h1>
+			<h1 class="text-center mt-3 mb-3">Enter Details of New Book</h1>
 
 			<div class="card">
 				<div class="card-header">Add New Book</div>

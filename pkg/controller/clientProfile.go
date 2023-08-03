@@ -5,6 +5,7 @@ import (
 	"mvc-go/pkg/models"
 	"mvc-go/pkg/views"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -32,6 +33,30 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 		t := views.ProfilePage()
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, ReqList)
+	}
+
+}
+func DeleteRequest(w http.ResponseWriter, r *http.Request) {
+	requestID := r.FormValue("reqID")
+	reqID, error := strconv.Atoi(requestID)
+	if error == nil {
+		err := models.DeleteRequest(reqID)
+		if err == "" {
+			http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		}
+	}
+}
+func ReturnBook(w http.ResponseWriter, r *http.Request) {
+	requestID := r.FormValue("reqID")
+	reqID, error := strconv.Atoi(requestID)
+	fmt.Println(error)
+	if error == nil {
+		err := models.ReturnBook(reqID)
+		if err == "" {
+			http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		} else {
+			fmt.Println(err)
+		}
 	}
 
 }

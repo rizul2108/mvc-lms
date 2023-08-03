@@ -25,6 +25,6 @@ func AddNewBook(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, ErrorMessage)
 	} else {
-		http.Redirect(w, r, "/adminBooks", http.StatusSeeOther)
+		http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 	}
 }

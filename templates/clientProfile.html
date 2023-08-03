@@ -40,13 +40,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <form action="/client/books" method="GET">
-            <button type="submit" class="btn-primary btn mx-2">
+            <a type="submit" class="btn-primary btn mx-2" href="/client/books" >
               View Available Books
-            </button>
-          </form>
+            </a>
           <form action="/logout" method="GET">
-            <input type="hidden" name="username" value="<%= username %>" />
             <button type="submit" class="btn-primary btn mx-2">Log Out</button>
           </form>
         </div>
@@ -74,31 +71,51 @@
             </tr>
             {{range .}}
             <tr>
-              <td>{{.BookID}}</td>
+              <td>{{.BookTitle}}</td>
               <td>{{.State}}</td>
               <td>{{.ReqType}}</td>
+              {{if eq .State "requested"}}
               <td>
-                <form action="/delReq" method="POST" class="reqMod">
+                <form action="/delReq" method="POST" id="delReq">
                   <input
                     type="hidden"
                     name="reqID"
-                    value="{{.RequestID}}"
                     class="form-control"
+                    value={{.RequestID}}
                   />
                   <button
                     type="submit"
-                    class="btn btn-primary btn-sm requestMod"
+                    class="btn btn-primary btn-sm"
+                    id="withdrawreq"
                   >
                     Withdraw Request
                   </button>
                 </form>
               </td>
+              {{else}}
+              <td>
+                <form action="/retBook" method="POST" id="retBook">
+                  <input
+                    type="hidden"
+                    name="reqID"
+                    class="form-control"
+                    value={{.RequestID}}
+                  />
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-sm"
+                    id="returnBook"
+                  >
+                    Request to Return
+                  </button>
+                </form>
+              </td>
+              {{end}}
             </tr>
             {{end}}
           </table>
         </div>
       </div>
     </div>
-    <script src="/sweetalert/sweetalert.min.js"></script>
   </body>
 </html>
