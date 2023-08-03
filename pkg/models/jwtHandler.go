@@ -66,7 +66,6 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		} else {
 			username := claims.Username
-			fmt.Println("err")
 			if r.URL.Path == "/addQty" || r.URL.Path == "/delete" || r.URL.Path == "/acceptRequest" || r.URL.Path == "/declineRequest" || r.URL.Path == "/admin/addBook" || r.URL.Path == "/admin/requests" || r.URL.Path == "/makeAdmin" || r.URL.Path == "/admin/add_book" || r.URL.Path == "/admin/books" {
 				err := TypeChecker(username, "admin")
 				if err == nil {

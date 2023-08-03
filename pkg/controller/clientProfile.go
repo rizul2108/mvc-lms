@@ -58,5 +58,4 @@ func ReturnBook(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 	}
-
 }

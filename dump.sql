@@ -33,3 +33,5 @@ CREATE TABLE `requests` (
     `req_type` enum('borrow', 'return', 'accepted'),  
     PRIMARY KEY(`request_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO users (username,full_name,hash,type) VALUES ("admin","iamadmin","$2a$10$dTT9W.1YqBhy760t54QUV.3ueDACZG/LbELi2PKaXE3PE3/83EYwW","admin");

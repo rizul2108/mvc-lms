@@ -2,7 +2,7 @@ package controller
 
 import (
 	// "encoding/json"
-	"fmt"
+
 	"mvc-go/pkg/models"
 	"mvc-go/pkg/views"
 	"net/http"
@@ -19,7 +19,9 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("Password")
 	jwToken, userType, err := models.LoginUser(username, password)
 	if err != "" {
-		fmt.Println(err)
+		t := views.LoginPage()
+		w.WriteHeader(http.StatusOK)
+		t.Execute(w, err)
 	} else {
 		http.SetCookie(w, &http.Cookie{
 			Name:     "jwt",
