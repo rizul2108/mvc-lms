@@ -14,8 +14,8 @@ setup:
 
 #Replace credentials in sampleConfig.yaml
 replace:
-	chmod +x credentialsReplace.sh
-	./credentialsReplace.sh
+	chmod +x ./scripts/credentialsReplace.sh
+	./scripts/credentialsReplace.sh
 
 # Build the server binary
 build:
