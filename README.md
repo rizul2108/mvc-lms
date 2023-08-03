@@ -23,3 +23,11 @@ Clone the repo. From the root directory run the following commands:
 
 The username as well as password of the first admin is `admin` 
 You can make new admins after logging in using the above mentioned credentials
+
+Or just skip these steps and run command make in root directory 
+
+Or you can also run commands 
+```
+chmod +x ./scripts/setup.sh
+ ./scripts/setup.sh
+```
