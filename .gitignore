@@ -2,3 +2,4 @@ mvc
 vendor/
 .env
 config.yaml
+dump.sql
