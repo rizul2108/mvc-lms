@@ -12,7 +12,7 @@ all: setup replace build run open
 setup:
 	mysql -u root -p < dump.sql
 
-#replace credentials in sampleConfig.yaml
+#Replace credentials in sampleConfig.yaml
 replace:
 	chmod +x credentialsReplace.sh
 	./credentialsReplace.sh
@@ -22,7 +22,7 @@ build:
 	go mod vendor
 	go mod tidy
 	go build -o $(EXEC_FILE) ./cmd/main.go
-	
+
 #Run the test function
 test:
 	go test ./pkg/models
