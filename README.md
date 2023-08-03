@@ -1,7 +1,7 @@
 # mvc-lms
 
 Clone the repo. From the root directory run the following commands:
-``````
+```
 - go mod vendor
 - go mod tidy
 ```
