@@ -2,6 +2,7 @@ package models
 
 import (
 	"golang.org/x/crypto/bcrypt"
+	"mvc-go/pkg/types"
 )
 
 func hashPassword(password string) (string, error) {
@@ -12,41 +13,52 @@ func hashPassword(password string) (string, error) {
 	return string(hash), nil
 }
 
-func AddUser(username, password, passwordC, fullname, user_type string) (string, string) {
+func AddUser(username, password, passwordC, fullname, user_type string) (string, types.ErrorMessage) {
+	var errorMsg types.ErrorMessage
+	var jwt string = ""
 	if password != passwordC {
-		return "", "Passwords didn't match"
+		errorMsg.Message = "Passwords didn't match"
+		return "", errorMsg
 	}
 
 	db, err := Connection()
 	if err != nil {
-		return "", "Internal Server Error 1"
+		errorMsg.Message = "Passwords didn't match"
+		return "", errorMsg
 	}
 	defer db.Close()
 
 	var userExists bool
 	err = db.QueryRow("SELECT EXISTS (SELECT 1 FROM users WHERE username = ?)", username).Scan(&userExists)
 	if err != nil {
-		return "", "Internal Server Error 2"
+		return "", errorMsg
 	}
 
 	if userExists {
-		return "", "Username Already Exists "
+		errorMsg.Message = "Username Already Exists "
+
+		return "", errorMsg
 	}
 
 	hashedPassword, err := hashPassword(password)
 	if err != nil {
-		return "", "Internal Server Error 3"
+		errorMsg.Message = "Username Already Exists "
+		return "", errorMsg
 	}
 
 	_, err = db.Exec(`INSERT INTO users (username, full_name,hash,type) VALUES (?, ?, ?,?)`, username, fullname, hashedPassword, user_type)
 	if err != nil {
-		return "", "Internal Server Error 4"
+		errorMsg.Message = "Internal Server Error 4"
+		return "", errorMsg
 	}
 
-	jwt, err := GenerateToken(username)
+	jwt, err = GenerateToken(username)
 	if err != nil {
-		return "", "Error in producing token"
+		errorMsg.Message = "Error in getting token"
+		return "", errorMsg
 	}
-	return jwt, ""
+	errorMsg.Message = ""
+
+	return jwt, errorMsg
 
 }

@@ -22,3 +22,7 @@ type Request struct {
 	BookTitle string
 	OwnerName string
 }
+
+type ErrorMessage struct {
+	Message string `json:"message"`
+}

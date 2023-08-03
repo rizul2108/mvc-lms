@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
+	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 )
@@ -18,12 +19,14 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("Password")
 	passwordC := r.FormValue("PasswordC")
 	fullname := r.FormValue("Fullname")
-	str, ErrorMessage := models.AddUser(username, password, passwordC, fullname, "client")
-	if ErrorMessage != "" {
-		fmt.Println(ErrorMessage)
+	var errorMessage types.ErrorMessage
+	var str string
+	str, errorMessage = models.AddUser(username, password, passwordC, fullname, "client")
+	if errorMessage.Message != "" {
+		fmt.Println(errorMessage.Message)
 		t := views.SignUpPage()
 		w.WriteHeader(http.StatusOK)
-		t.Execute(w, ErrorMessage)
+		t.Execute(w, errorMessage)
 	} else {
 		http.SetCookie(w, &http.Cookie{
 			Name:     "jwt",

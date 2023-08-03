@@ -17,15 +17,15 @@ func LogIn(writer http.ResponseWriter, request *http.Request) {
 func LoginUser(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
-	jwToken, userType, err := models.LoginUser(username, password)
-	if err != "" {
+	jwtToken, userType, errorMessage := models.LoginUser(username, password)
+	if errorMessage.Message != "" {
 		t := views.LoginPage()
 		w.WriteHeader(http.StatusOK)
-		t.Execute(w, err)
+		t.Execute(w, errorMessage)
 	} else {
 		http.SetCookie(w, &http.Cookie{
 			Name:     "jwt",
-			Value:    jwToken,
+			Value:    jwtToken,
 			Path:     "/",
 			HttpOnly: true,
 		})

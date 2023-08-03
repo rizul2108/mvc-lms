@@ -90,9 +90,9 @@
             </button>
           </form>
         </div>
-        <!-- <div id="alert" style="display: block; color: red; margin: 2%">
-					<%= message %>
-				</div> -->
+        {{ if .ErrorMessage }}
+        <p style="color: red">Error: {{ .Message }}</p>
+        {{ end }}
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

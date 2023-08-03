@@ -33,8 +33,10 @@
               <button type="submit" class="btn btn-primary">Log in</button>
             </form>
           </div>
-          {{ if .ErrorMessage }}
-        <p style="color: red">Error: {{ .ErrorMessage }}</p>
+          {{ if eq .Message "" }}
+          <br>
+          {{else}}
+        <p style="color: red">Error: {{ .Message }}</p>
         {{ end }}
         </div>
       </div>
