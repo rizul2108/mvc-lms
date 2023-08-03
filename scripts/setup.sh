@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Function to check if a command is available
-command_exists() {
+commandExists() {
   command -v "$1" >/dev/null 2>&1
 }
 
 # Check if 'mysql' command is available
-if ! command_exists "mysql"; then
+if ! commandExists "mysql"; then
   echo "MySQL client is required but not installed. Aborting."
   exit 1
 fi
 
 # Check if 'go' command is available
-if ! command_exists "go"; then
+if ! commandExists "go"; then
   echo "Go is required but not installed. Aborting."
   exit 1
 fi
@@ -61,9 +61,9 @@ if [ $? -ne 0 ]; then
 fi
 
 # Open the website in the browser
-if command_exists "xdg-open"; then
+if commandExists "xdg-open"; then
   xdg-open http://localhost:9000
-elif command_exists "open"; then
+elif commandExists "open"; then
   open http://localhost:9000
 else
   echo "Couldn't automatically open the website in the browser. You can manually open http://localhost:9000"

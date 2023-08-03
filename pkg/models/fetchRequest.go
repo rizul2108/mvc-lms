@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"mvc-go/pkg/types"
 )
 
@@ -27,7 +26,7 @@ func FetchRequests(username string) ([]types.Request, string) {
 	var requests []types.Request
 	for rows.Next() {
 		var request types.Request
-		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.ReqType)
+		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.RequestType)
 		db.QueryRow("SELECT title from books where book_id=?", request.BookID).Scan(&request.BookTitle)
 		request.OwnerName = ownerName
 		if err != nil {
@@ -63,7 +62,7 @@ func FetchAllRequests() ([]types.Request, string) {
 	var requests []types.Request
 	for rows.Next() {
 		var request types.Request
-		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.ReqType, &request.BookTitle, &request.OwnerName, &userID)
+		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.RequestType, &request.BookTitle, &request.OwnerName, &userID)
 		if err != nil {
 			fmt.Println(err)
 			return nil, "Internal Server Error"

@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func AddRequest(bookID int, username string) string {
@@ -127,7 +126,7 @@ func AcceptRequest(reqID int) string {
 			}
 		}
 	} else {
-		result, err := db.Exec(`delete from requests where request_id=?`, reqID)
+		result, err := db.Exec(`admin/deleteBooks from requests where request_id=?`, reqID)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"

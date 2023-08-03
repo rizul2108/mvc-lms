@@ -1,7 +1,6 @@
 package models
 
 import (
-	_ "github.com/go-sql-driver/mysql"
 	"mvc-go/pkg/types"
 	"reflect"
 	"testing"

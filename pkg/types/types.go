@@ -1,10 +1,10 @@
 package types
 
 type User struct {
-	Fullname  string `json:"Fullname"`
-	Username  string `json:"Username"`
-	Password  string `json:"Password"`
-	PasswordC string `json:"PasswordC"`
+	Fullname           string `json:"Fullname"`
+	Username           string `json:"Username"`
+	Password           string `json:"Password"`
+	PasswordConfirmVal string `json:"PasswordConfirmVal"`
 }
 
 type Book struct {
@@ -15,12 +15,12 @@ type Book struct {
 }
 
 type Request struct {
-	RequestID int
-	BookID    int
-	State     string
-	ReqType   string
-	BookTitle string
-	OwnerName string
+	RequestID   int
+	BookID      int
+	State       string
+	RequestType string
+	BookTitle   string
+	OwnerName   string
 }
 
 type ErrorMessage struct {

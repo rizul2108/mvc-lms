@@ -64,7 +64,7 @@
         <div class="table-responsive">
           <table class="table table-bordered">
             <tr>
-              <th>Book_name</th>
+              <th>Book Name</th>
               <th>Status</th>
               <th>Type of Request</th>
               <th>Action</th>
@@ -73,10 +73,10 @@
             <tr>
               <td>{{.BookTitle}}</td>
               <td>{{.State}}</td>
-              <td>{{.ReqType}}</td>
+              <td>{{.RequestType}}</td>
               {{if eq .State "requested"}}
               <td>
-                <form action="/delReq" method="POST" id="delReq">
+                <form action="/client/delReq" method="POST" id="client/delReq">
                   <input
                     type="hidden"
                     name="reqID"
@@ -94,7 +94,7 @@
               </td>
               {{else}}
               <td>
-                <form action="/retBook" method="POST" id="retBook">
+                <form action="/client/retBook" method="POST" id="client/retBook">
                   <input
                     type="hidden"
                     name="reqID"

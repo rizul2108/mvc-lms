@@ -33,7 +33,7 @@
           <a type="submit" class="btn-primary btn me-2" href="/admin/books"
             >Go back to books</a
           >
-          <a type="submit" class="btn-primary btn me-2" href="/makeAdmin"
+          <a type="submit" class="btn-primary btn me-2" href="/admin/makeAdmin"
             >Make New Admin</a
           >
           <form action="/logout" method="GET" class="d-flex">
@@ -67,10 +67,10 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">Made by:{{.OwnerName}}</li>
-                <li class="list-group-item">Request Type:{{.ReqType}}</li>
+                <li class="list-group-item">Request Type:{{.RequestType}}</li>
               </ul>
               <div class="card-body p-2">
-                <form action="/acceptRequest" method="POST">
+                <form action="/admin/acceptRequest" method="POST">
                   <input
                     type="hidden"
                     name="reqID"
@@ -81,7 +81,7 @@
                     Accept
                   </button>
                 </form>
-                <form action="/declineRequest" method="POST">
+                <form action="/admin/declineRequest" method="POST">
                   <input
                     type="hidden"
                     name="reqID"

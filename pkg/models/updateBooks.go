@@ -2,8 +2,6 @@ package models
 
 import (
 	"strconv"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func AddQuantity(id, quantity string) string {

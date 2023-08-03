@@ -3,10 +3,11 @@ package models
 import (
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 var jwtKey = []byte("your_secret_key")
@@ -47,7 +48,7 @@ func VerifyToken(tokenString string) (*Claims, error) {
 
 func TokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" {
+		if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" {
 			next.ServeHTTP(w, r)
 			return
 		}
@@ -66,12 +67,15 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		} else {
 			username := claims.Username
-			if r.URL.Path == "/addQty" || r.URL.Path == "/delete" || r.URL.Path == "/acceptRequest" || r.URL.Path == "/declineRequest" || r.URL.Path == "/admin/addBook" || r.URL.Path == "/admin/requests" || r.URL.Path == "/makeAdmin" || r.URL.Path == "/admin/add_book" || r.URL.Path == "/admin/books" {
+			pathComponents := strings.Split(r.URL.Path, "/")
+			firstPartOfURL := pathComponents[1]
+
+			if firstPartOfURL == "admin" {
 				err := TypeChecker(username, "admin")
 				if err == nil {
 					next.ServeHTTP(w, r)
 				} else {
-					http.Redirect(w, r, "/profile", http.StatusSeeOther)
+					http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 				}
 			} else {
 				err := TypeChecker(username, "client")

@@ -16,7 +16,7 @@ func MakeAdmin(writer http.ResponseWriter, request *http.Request) {
 func AddAdmin(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
-	passwordC := r.FormValue("PasswordC")
+	passwordC := r.FormValue("PasswordConfirmVal")
 	fullname := r.FormValue("Fullname")
 	var errorMsg types.ErrorMessage
 	str, errorMsg := models.AddUser(username, password, passwordC, fullname, "admin")

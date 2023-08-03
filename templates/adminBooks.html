@@ -31,7 +31,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <a type="submit" class="btn-primary btn me-2" href="/makeAdmin">
+          <a type="submit" class="btn-primary btn me-2" href="/admin/makeAdmin">
             Make New Admin
           </a>
           <a type="submit" class="btn-primary btn me-2" href="/admin/requests">
@@ -69,7 +69,7 @@
                   <li class="list-group-item">No. of copies: {{.Quantity}}</li>
                 </ul>
                 <div class="card-body">
-                  <form action="/addQty" method="POST">
+                  <form action="/admin/addQty" method="POST">
                     <div class="input-group mb-3">
                       <input
                         type="hidden"
@@ -96,7 +96,7 @@
                       </button>
                     </div>
                   </form>
-                  <form action="/delete" method="POST">
+                  <form action="/admin/deleteBooks" method="POST">
                     <div class="input-group mb-3">
                       <input
                         type="hidden"

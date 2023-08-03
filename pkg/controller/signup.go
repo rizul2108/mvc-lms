@@ -17,7 +17,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
-	passwordC := r.FormValue("PasswordC")
+	passwordC := r.FormValue("PasswordConfirmVal")
 	fullname := r.FormValue("Fullname")
 	var errorMessage types.ErrorMessage
 	var str string
@@ -34,6 +34,6 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 			Path:     "/",
 			HttpOnly: true,
 		})
-		http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 	}
 }

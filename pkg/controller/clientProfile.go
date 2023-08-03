@@ -42,7 +42,7 @@ func DeleteRequest(w http.ResponseWriter, r *http.Request) {
 	if error == nil {
 		err := models.DeleteRequest(reqID)
 		if err == "" {
-			http.Redirect(w, r, "/profile", http.StatusSeeOther)
+			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 		}
 	}
 }
@@ -53,7 +53,7 @@ func ReturnBook(w http.ResponseWriter, r *http.Request) {
 	if error == nil {
 		err := models.ReturnBook(reqID)
 		if err == "" {
-			http.Redirect(w, r, "/profile", http.StatusSeeOther)
+			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 		} else {
 			fmt.Println(err)
 		}

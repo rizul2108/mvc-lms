@@ -29,11 +29,10 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a type="submit" class="btn-primary btn" href="/makeAdmin">
+        <a type="submit" class="btn-primary btn" href="/admin/makeAdmin">
           Make New Admin
         </a>
         <form action="/logout" method="GET">
-          <input type="hidden" name="username" value="<%=username%>" />
           <button type="submit" class="btn-primary btn">Logout</button>
         </form>
       </div>
@@ -44,7 +43,7 @@
       <div class="card">
         <div class="card-header">Add New Book</div>
         <div class="card-body">
-          <form method="POST" action="/admin/add_book">
+          <form method="POST" action="/admin/addBook">
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">

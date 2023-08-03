@@ -10,15 +10,16 @@ import (
 
 func AdminRequests(w http.ResponseWriter, r *http.Request) {
 
-	ReqList, error := models.FetchAllRequests()
+	RequestList, error := models.FetchAllRequests()
 	if error != "" {
 		fmt.Println(error)
 	} else {
 		t := views.AdminRequestsPage()
 		w.WriteHeader(http.StatusOK)
-		t.Execute(w, ReqList)
+		t.Execute(w, RequestList)
 	}
 }
+
 func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	reqID := r.FormValue("reqID")
 	requestID, err := strconv.Atoi(reqID)
@@ -31,6 +32,7 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/admin/requests", http.StatusSeeOther)
 }
+
 func DeclineRequest(w http.ResponseWriter, r *http.Request) {
 	reqID := r.FormValue("reqID")
 	requestID, err := strconv.Atoi(reqID)

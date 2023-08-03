@@ -5,7 +5,7 @@ Clone the repo. From the root directory run the following commands:
 - go mod vendor
 - go mod tidy
 ```
-## MYSQL:
+## MySQL:
 1. `mysql -u root -p` : and enter password
 2. Import the sql dump file to your sql database: `mysql -u root -p books < dump.sql`
 3. Replace previously written credentials in sampleConfig.yaml with your database credentials and rename that file with config.yaml. Do the same thing with sampleConfig.yaml in `./pkg/models`
