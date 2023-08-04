@@ -48,7 +48,10 @@ func VerifyToken(tokenString string) (*Claims, error) {
 
 func TokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" {
+		pathComponents := strings.Split(r.URL.Path, "/")
+		firstPartOfURL := pathComponents[1]
+
+		if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
 			next.ServeHTTP(w, r)
 			return
 		}
@@ -67,9 +70,6 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		} else {
 			username := claims.Username
-			pathComponents := strings.Split(r.URL.Path, "/")
-			firstPartOfURL := pathComponents[1]
-
 			if firstPartOfURL == "admin" {
 				err := TypeChecker(username, "admin")
 				if err == nil {
