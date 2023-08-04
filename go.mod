@@ -9,3 +9,5 @@ require (
 	golang.org/x/crypto v0.11.0
 	gopkg.in/yaml.v3 v3.0.1
 )
+
+require github.com/DATA-DOG/go-sqlmock v1.5.0

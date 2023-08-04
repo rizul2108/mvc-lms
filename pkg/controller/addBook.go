@@ -16,10 +16,10 @@ func AddBook(w http.ResponseWriter, request *http.Request) {
 func AddNewBook(w http.ResponseWriter, r *http.Request) {
 	title := r.FormValue("title")
 	author := r.FormValue("author")
-	qtyStr := r.FormValue("quantity")
-	qty, err := strconv.Atoi(qtyStr)
+	quantityStr := r.FormValue("quantity")
+	quantity, err := strconv.Atoi(quantityStr)
 	fmt.Println(err)
-	ErrorMessage := models.AddBook(title, author, qty)
+	ErrorMessage := models.AddBook(title, author, quantity)
 	if ErrorMessage != "" {
 		t := views.MakeAdminPage()
 		w.WriteHeader(http.StatusOK)

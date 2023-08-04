@@ -34,7 +34,7 @@ func AddRequest(bookID int, username string) string {
 	}
 }
 
-func DeleteRequest(reqID int) string {
+func DeleteRequest(requestId int) string {
 	db, err := Connection()
 	if err != nil {
 		fmt.Println(err)
@@ -42,12 +42,12 @@ func DeleteRequest(reqID int) string {
 	}
 	var reqType string
 
-	error := db.QueryRow("SELECT req_type FROM requests WHERE request_id = ?", reqID).Scan(&reqType)
+	error := db.QueryRow("SELECT req_type FROM requests WHERE request_id = ?", requestId).Scan(&reqType)
 	if error != nil {
 		return "Internal Server Error"
 	}
 	if reqType == "borrow" {
-		result, err := db.Exec("DELETE FROM requests WHERE request_id = ?", reqID)
+		result, err := db.Exec("DELETE FROM requests WHERE request_id = ?", requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -60,7 +60,7 @@ func DeleteRequest(reqID int) string {
 			}
 		}
 	} else {
-		result, err := db.Exec(`UPDATE requests SET req_type="accepted", state="owned" WHERE request_id =?`, reqID)
+		result, err := db.Exec(`UPDATE requests SET req_type="accepted", state="owned" WHERE request_id =?`, requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -76,13 +76,13 @@ func DeleteRequest(reqID int) string {
 	return "Error"
 }
 
-func ReturnBook(reqID int) string {
+func ReturnBook(requestId int) string {
 	db, err := Connection()
 	if err != nil {
 		fmt.Println(err)
 		return "Error in connecting to db"
 	}
-	result, err := db.Exec(`update requests set state="requested" , req_type="return" WHERE request_id =?`, reqID)
+	result, err := db.Exec(`update requests set state="requested" , req_type="return" WHERE request_id =?`, requestId)
 	if err != nil {
 		fmt.Println(err)
 		return "Internal Server error"
@@ -98,7 +98,7 @@ func ReturnBook(reqID int) string {
 	return "error"
 }
 
-func AcceptRequest(reqID int) string {
+func AcceptRequest(requestId int) string {
 	db, err := Connection()
 	if err != nil {
 		fmt.Println(err)
@@ -106,12 +106,12 @@ func AcceptRequest(reqID int) string {
 	}
 	var reqType string
 	var bookID int
-	error := db.QueryRow("SELECT req_type,book_id FROM requests WHERE request_id = ?", reqID).Scan(&reqType, &bookID)
+	error := db.QueryRow("SELECT req_type,book_id FROM requests WHERE request_id = ?", requestId).Scan(&reqType, &bookID)
 	if error != nil {
 		return "Internal Server Error"
 	}
 	if reqType == "borrow" {
-		result, err := db.Exec(`update requests set req_type="accepted", state="owned" WHERE request_id = ?`, reqID)
+		result, err := db.Exec(`update requests set req_type="accepted", state="owned" WHERE request_id = ?`, requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -126,7 +126,7 @@ func AcceptRequest(reqID int) string {
 			}
 		}
 	} else {
-		result, err := db.Exec(`admin/deleteBooks from requests where request_id=?`, reqID)
+		result, err := db.Exec(`admin/deleteBooks from requests where request_id=?`, requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -143,13 +143,13 @@ func AcceptRequest(reqID int) string {
 	}
 	return "error"
 }
-func DeclineRequest(reqID int) string {
+func DeclineRequest(requestId int) string {
 	db, err := Connection()
 	if err != nil {
 		fmt.Println(err)
 		return "Error in connecting to db"
 	}
-	result, err := db.Exec("DELETE FROM requests WHERE request_id = ?", reqID)
+	result, err := db.Exec("DELETE FROM requests WHERE request_id = ?", requestId)
 	if err != nil {
 		fmt.Println(err)
 		return "Internal Server error"

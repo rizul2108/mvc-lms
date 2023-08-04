@@ -1,23 +1,23 @@
 package models
 
 import (
+	"database/sql"
 	"fmt"
 	"mvc-go/pkg/types"
 )
 
-func FetchRequests(username string) ([]types.Request, string) {
-	db, err := Connection()
-
+func FetchRequests(db *sql.DB, username string) ([]types.Request, string) {
 	var userID int
-	err = db.QueryRow("SELECT user_id FROM users WHERE username=?", username).Scan(&userID)
+	err := db.QueryRow("SELECT user_id FROM users WHERE username=?", username).Scan(&userID)
 	if err != nil {
+		fmt.Println(err)
 		return nil, "User not found"
 	}
 
 	rows, err := db.Query("SELECT request_id,book_id, state, req_type FROM requests where user_id=?", userID)
 	if err != nil {
 		fmt.Println(err)
-		return nil, "Internal Server Error"
+		return nil, "Internal Server Error 1"
 	}
 	defer rows.Close()
 	var ownerName string
@@ -27,22 +27,30 @@ func FetchRequests(username string) ([]types.Request, string) {
 	for rows.Next() {
 		var request types.Request
 		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.RequestType)
-		db.QueryRow("SELECT title from books where book_id=?", request.BookID).Scan(&request.BookTitle)
-		request.OwnerName = ownerName
 		if err != nil {
 			fmt.Println(err)
-			return nil, "Internal Server Error"
+			return nil, "Internal Server Error 2"
 		}
+		// Use a different variable name for the second result set
+		var bookTitle string
+		err = db.QueryRow("SELECT title from books where book_id=?", request.BookID).Scan(&bookTitle)
+		if err != nil {
+			fmt.Println(err)
+			return nil, "Internal Server Error 3"
+		}
+		request.BookTitle = bookTitle
+		request.OwnerName = ownerName
 		requests = append(requests, request)
 	}
 
 	return requests, ""
 }
+
 func FetchAllRequests() ([]types.Request, string) {
 	db, err := Connection()
 	if err != nil {
 		fmt.Println(err)
-		return nil, "Internal Server Error"
+		return nil, "Internal Server Error 2"
 	}
 	defer db.Close()
 

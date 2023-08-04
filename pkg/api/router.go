@@ -41,5 +41,8 @@ func Start() {
 
 	r.HandleFunc("/logout", controller.Logout).Methods("GET")
 
+	s := http.StripPrefix("/static/", http.FileServer(http.Dir("./static/")))
+	r.PathPrefix("/static/").Handler(s)
+
 	http.ListenAndServe(":9000", r)
 }

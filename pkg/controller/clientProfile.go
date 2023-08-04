@@ -25,8 +25,10 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
+	db, err := models.Connection()
 	username := claims.Username
-	ReqList, error := models.FetchRequests(username)
+
+	ReqList, error := models.FetchRequests(db, username)
 	if error != "" {
 		fmt.Println(error)
 	} else {
@@ -37,21 +39,21 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 
 }
 func DeleteRequest(w http.ResponseWriter, r *http.Request) {
-	requestID := r.FormValue("reqID")
-	reqID, error := strconv.Atoi(requestID)
+	requestID := r.FormValue("requestId")
+	requestId, error := strconv.Atoi(requestID)
 	if error == nil {
-		err := models.DeleteRequest(reqID)
+		err := models.DeleteRequest(requestId)
 		if err == "" {
 			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 		}
 	}
 }
 func ReturnBook(w http.ResponseWriter, r *http.Request) {
-	requestID := r.FormValue("reqID")
-	reqID, error := strconv.Atoi(requestID)
+	requestID := r.FormValue("requestId")
+	requestId, error := strconv.Atoi(requestID)
 	fmt.Println(error)
 	if error == nil {
-		err := models.ReturnBook(reqID)
+		err := models.ReturnBook(requestId)
 		if err == "" {
 			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 		} else {

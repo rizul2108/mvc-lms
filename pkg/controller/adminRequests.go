@@ -21,8 +21,8 @@ func AdminRequests(w http.ResponseWriter, r *http.Request) {
 }
 
 func AcceptRequest(w http.ResponseWriter, r *http.Request) {
-	reqID := r.FormValue("reqID")
-	requestID, err := strconv.Atoi(reqID)
+	requestId := r.FormValue("requestId")
+	requestID, err := strconv.Atoi(requestId)
 	if err != nil {
 
 	}
@@ -34,8 +34,8 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeclineRequest(w http.ResponseWriter, r *http.Request) {
-	reqID := r.FormValue("reqID")
-	requestID, err := strconv.Atoi(reqID)
+	requestId := r.FormValue("requestId")
+	requestID, err := strconv.Atoi(requestId)
 	if err != nil {
 
 	}
