@@ -3,14 +3,37 @@ package models
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"gopkg.in/yaml.v3"
 )
 
-var jwtKey = []byte("your_secret_key")
+var jwtKey []byte
+
+type JWTConfig struct {
+	JWT_SECRET []byte `yaml:"JWT_SECRET"`
+}
+
+func JwtSecretKey() {
+	configFile, err := os.Open("config.yaml")
+	if err != nil {
+		log.Fatalf("failed to open config file: %v", err)
+	}
+	defer configFile.Close()
+
+	var config JWTConfig
+	decoder := yaml.NewDecoder(configFile)
+	err = decoder.Decode(&config)
+	if err != nil {
+		log.Fatalf("failed to decode config: %v", err)
+	}
+	jwtKey = config.JWT_SECRET
+}
 
 type Claims struct {
 	Username string `json:"username"`
@@ -21,7 +44,7 @@ func GenerateToken(username string) (string, error) {
 	claims := &Claims{
 		Username: username,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), // JWT expires in 24 hours
+			ExpiresAt: time.Now().Add(time.Hour * 9).Unix(),
 			IssuedAt:  time.Now().Unix(),
 		},
 	}

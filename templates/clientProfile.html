@@ -24,31 +24,30 @@
     <title>Profile</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-xl bg-body-tertiary bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Library</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <a type="submit" class="btn-primary btn mx-2" href="/client/books">
-            View Available Books
-          </a>
+    <header
+      class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+    >
+      <a
+        href="/"
+        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+      >
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4">Library</span>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a href="/client/books" class="nav-link">View Available Books</a>
+        </li>
+        <li>
           <form action="/logout" method="GET">
-            <button type="submit" class="btn-primary btn mx-2">Log Out</button>
+            <button type="submit" class="btn-primary btn">Log Out</button>
           </form>
-        </div>
-      </div>
-    </nav>
+        </li>
+      </ul>
+    </header>
     <h1 class="m-5">
       Hi!<br />
       Welcome to Library Portal
@@ -94,7 +93,11 @@
               </td>
               {{else}}
               <td>
-                <form action="/client/retBook" method="POST" id="client/retBook">
+                <form
+                  action="/client/retBook"
+                  method="POST"
+                  id="client/retBook"
+                >
                   <input
                     type="hidden"
                     name="requestId"

@@ -16,21 +16,16 @@
     <title>Sign Up</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-xl bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Library</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Library</span>
+      </a>
+  
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+      </ul>
+    </header>
     </nav>
     <div class="container my-5">
       <div class="card" style="width: 40rem">
@@ -84,7 +79,7 @@
         {{ if eq .Message "" }}
         <br />
         {{else}}
-        <p style="color: red">Error: {{ .Message }}</p>
+        <p style="color: red" class="m-1">Error: {{ .Message }}</p>
         {{ end }}
       </div>
     </div>

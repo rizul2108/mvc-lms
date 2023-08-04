@@ -16,25 +16,16 @@
     <title>Make Admin</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-xl bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Library</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a type="submit" class="btn-primary btn" href="/admin/books">
-          Go Back
-        </a>
-      </div>
-    </nav>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Library</span>
+      </a>
+  
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/admin/books" class="nav-link">Go Back</a></li>
+      </ul>
+    </header>
     <div class="container my-5">
       <div class="card" style="width: 40rem">
         <div class="card-body">
@@ -90,7 +81,7 @@
             </button>
           </form>
         </div>
-        <p style="color: red">Error: {{ .Message }}</p>
+        <p style="color: red" class="m-1">Error: {{ .Message }}</p>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
