@@ -3,6 +3,7 @@ package api
 import (
 	"mvc-go/pkg/controller"
 	"mvc-go/pkg/models"
+	"mvc-go/pkg/utils"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -40,9 +41,11 @@ func Start() {
 	r.HandleFunc("/admin/makeAdmin", controller.MakeAdmin).Methods("GET")
 
 	r.HandleFunc("/logout", controller.Logout).Methods("GET")
-
-	s := http.StripPrefix("/static/", http.FileServer(http.Dir("./static/")))
-	r.PathPrefix("/static/").Handler(s)
+	pathCSS, err := utils.GetCurrentDirPath()
+	if err == nil {
+		s := http.StripPrefix("/static/", http.FileServer(http.Dir(pathCSS+"/pkg/static/")))
+		r.PathPrefix("/static/").Handler(s)
+	}
 
 	http.ListenAndServe(":9000", r)
 }
