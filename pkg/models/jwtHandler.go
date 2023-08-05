@@ -73,16 +73,19 @@ func TokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		pathComponents := strings.Split(r.URL.Path, "/")
 		firstPartOfURL := pathComponents[1]
-
-		if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
+		if r.URL.Path == "/" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
 			next.ServeHTTP(w, r)
 			return
 		}
-
 		cookie, err := r.Cookie("jwt")
 		if err != nil {
-			http.Redirect(w, r, "/login", http.StatusSeeOther) // Redirect to login page if token is missing
-			return
+			if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
+				next.ServeHTTP(w, r)
+				return
+			} else {
+				http.Redirect(w, r, "/login", http.StatusSeeOther) // Redirect to login page if token is missing
+				return
+			}
 		}
 
 		tokenString := strings.TrimSpace(cookie.Value)
@@ -96,6 +99,10 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			if firstPartOfURL == "admin" {
 				err := TypeChecker(username, "admin")
 				if err == nil {
+					if r.URL.Path == "/signup" || r.URL.Path == "/login" || r.URL.Path == "/home" {
+						http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
+						return
+					}
 					next.ServeHTTP(w, r)
 				} else {
 					http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
@@ -107,6 +114,10 @@ func TokenMiddleware(next http.Handler) http.Handler {
 				} else {
 					err = TypeChecker(username, "requested")
 					if err == nil {
+						if r.URL.Path == "/signup" || r.URL.Path == "/login" || r.URL.Path == "/home" {
+							http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
+							return
+						}
 						next.ServeHTTP(w, r)
 					} else {
 						http.Redirect(w, r, "/admin/books", http.StatusSeeOther)

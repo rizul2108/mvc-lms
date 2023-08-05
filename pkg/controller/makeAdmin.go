@@ -21,6 +21,7 @@ func AddAdmin(w http.ResponseWriter, r *http.Request) {
 	var errorMsg types.ErrorMessage
 	str, errorMsg := models.AddUser(username, password, passwordC, fullname, "admin")
 	if errorMsg.Message != "" {
+		fmt.Print(errorMsg.Message)
 		t := views.MakeAdminPage()
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, errorMsg)

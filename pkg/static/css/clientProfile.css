@@ -1,59 +1,222 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
-  }
-  .navbar {
-    background-color: #333;
-  }
-  .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color:white;
-  }
-  .card {
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
+  background: linear-gradient(90deg, #C7C5F4, #776BCC);
+}
 
-  .card-header h3 {
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  th {
-    background-color: #f7f7f7;
-    font-weight: 700;
-  }
+.card {
+  background: #fff;
+  border-radius: 0.625rem;
+  box-shadow: 0px 0px 24px #5C5696;
+}
 
-  .m-5 {
-    margin: 2.5rem;
+.card-header {
+  background: #333;
+  color: #fff;
+  padding: 1.25rem;
+  border-radius: 0.625rem 0.625rem 0 0;
+}
+
+.card-body {
+  padding: 0.625rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.625rem;
+  text-align: left;
+  border-bottom: 0.0625rem solid #ccc;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary.btn-sm {
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.3125rem;
+}
+
+.m-5 {
+  margin: 1.5625rem;
+}
+
+.m-2 {
+  margin: 0.3125rem;
+}
+
+.py-3 {
+  padding-top: 0.9375rem;
+  padding-bottom: 0.9375rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.25rem;
+}
+
+.border-bottom {
+  border-bottom: 0.0625rem solid #dee2e6 !important;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.625rem;
+  margin-left: -0.625rem;
+}
+
+.col {
+  flex: 1;
+  padding: 0.625rem;
+}
+
+.col h3 {
+  margin: 0;
+}
+
+.nav {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-item {
+  margin-right: 0.5rem;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.link-body-emphasis {
+  color: #007bff;
+}
+
+.text-decoration-none {
+  text-decoration: none !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.py-3 {
+  padding-top: 0.9375rem !important;
+  padding-bottom: 0.9375rem !important;
+}
+
+.min-height-80vh {
+  min-height: 80vh !important;
+}
+
+.fs-4 {
+  font-size: 2rem !important;
+}
+
+.bi {
+  display: inline-block;
+  font-size: 1.5rem;
+  vertical-align: text-bottom;
+}
+
+.col h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.col h1 br {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .col h1 {
+    font-size: 3rem;
   }
-  /* Customized Styles */
-  .btn-primary {
-    background-color: #dc3545;
-    color: #fff;
+}
+
+@media (min-width: 768px) {
+  .col h1 {
+    font-size: 3.5rem;
   }
-  .btn-primary:hover {
-    background-color: #c82333;
+}
+
+@media (min-width: 992px) {
+  .col h1 {
+    font-size: 4rem;
   }
-  .table-bordered {
-    border: 1px solid #ddd;
-  }
-  .table-bordered th, .table-bordered td {
-    border: 1px solid #ddd;
-  }
-  .btn-sm {
-    font-size: 0.9rem;
-  }
-  .text-primary {
-    color: #dc3545;
-  }
+}
+
+.btn-primary {
+  background-color: #fff;
+  color: #4C489D;
+  border-color: #D4D3E8;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 26px;
+  padding: 10px 15px;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #6A679E;
+  border-color: #6A679E;
+  color: #fff;
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0px 2px 2px #5C5696;
+}
+
+.btn-outline-secondary {
+  border-color: #6A679E;
+  color: #6A679E;
+  border-radius: 26px;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6A679E;
+  color: #fff;
+}
