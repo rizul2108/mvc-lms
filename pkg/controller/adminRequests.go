@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func AdminRequests(w http.ResponseWriter, r *http.Request) {
+func AdminRequests(w http.ResponseWriter, _ *http.Request) {
 
 	RequestList, error := models.FetchAllRequests()
 	if error != "" {

@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func MakeAdmin(writer http.ResponseWriter, request *http.Request) {
+func MakeAdmin(writer http.ResponseWriter, _ *http.Request) {
 	t := views.ViewPage("makeAdmin")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)

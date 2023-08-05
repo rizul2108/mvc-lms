@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func AdminBooks(writer http.ResponseWriter, request *http.Request) {
+func AdminBooks(writer http.ResponseWriter, _ *http.Request) {
 	books, err := models.FetchBooks()
 	if err != nil {
 		http.Error(writer, "Database error", http.StatusInternalServerError)

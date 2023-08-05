@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func ClientBooks(writer http.ResponseWriter, request *http.Request) {
+func ClientBooks(writer http.ResponseWriter, _ *http.Request) {
 	books, err := models.FetchBooks()
 	if err != nil {
 		http.Error(writer, "Database error", http.StatusInternalServerError)

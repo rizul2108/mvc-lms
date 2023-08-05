@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func AddBook(w http.ResponseWriter, request *http.Request) {
+func AddBook(w http.ResponseWriter, _ *http.Request) {
 	t := views.ViewPage("addBook")
 	w.WriteHeader(http.StatusOK)
 	t.Execute(w, nil)

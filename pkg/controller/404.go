@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func NotFound(writer http.ResponseWriter, request *http.Request) {
+func NotFound(writer http.ResponseWriter, _ *http.Request) {
 	t := views.ViewPage("404")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)

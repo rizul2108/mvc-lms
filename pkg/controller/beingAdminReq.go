@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func BeingAdminRequests(w http.ResponseWriter, r *http.Request) {
+func BeingAdminRequests(w http.ResponseWriter, _ *http.Request) {
 	db, err := models.Connection()
 	if err != nil {
 		return

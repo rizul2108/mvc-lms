@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Home(writer http.ResponseWriter, request *http.Request) {
+func Home(writer http.ResponseWriter, _ *http.Request) {
 	t := views.ViewPage("home")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)

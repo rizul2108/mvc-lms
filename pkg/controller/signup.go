@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func SignUp(writer http.ResponseWriter, request *http.Request) {
+func SignUp(writer http.ResponseWriter, _ *http.Request) {
 	t := views.ViewPage("signup")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
