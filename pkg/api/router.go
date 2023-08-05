@@ -35,10 +35,13 @@ func Start() {
 	r.HandleFunc("/admin/declineRequest", controller.DeclineRequest).Methods("POST")
 	r.HandleFunc("/admin/addBook", controller.AddBook).Methods("GET")
 	r.HandleFunc("/admin/requests", controller.AdminRequests).Methods("GET")
+	r.HandleFunc("/admin/adminRequests", controller.BeingAdminRequests).Methods("GET")
 	r.HandleFunc("/admin/makeAdmin", controller.AddAdmin).Methods("POST")
 	r.HandleFunc("/admin/addBook", controller.AddNewBook).Methods("POST")
 	r.HandleFunc("/admin/books", controller.AdminBooks).Methods("GET")
 	r.HandleFunc("/admin/makeAdmin", controller.MakeAdmin).Methods("GET")
+	r.HandleFunc("/admin/decAdmin", controller.DeclineAdmin).Methods("POST")
+	r.HandleFunc("/admin/accAdmin", controller.AcceptAdmin).Methods("POST")
 
 	r.HandleFunc("/logout", controller.Logout).Methods("GET")
 	pathCSS, err := utils.GetCurrentDirPath()

@@ -13,15 +13,25 @@ func SignUp(writer http.ResponseWriter, request *http.Request) {
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
-func AddUser(w http.ResponseWriter, r *http.Request) {
 
+func AddUser(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
 	passwordC := r.FormValue("PasswordConfirmVal")
 	fullname := r.FormValue("Fullname")
+
+	adminRequest := r.Form["adminRequest"] != nil
+	fmt.Println(r.Form["adminRequest"])
+
 	var errorMessage types.ErrorMessage
 	var str string
-	str, errorMessage = models.AddUser(username, password, passwordC, fullname, "client")
+	fmt.Println(adminRequest)
+	if adminRequest == false {
+		str, errorMessage = models.AddUser(username, password, passwordC, fullname, "client")
+	} else {
+		str, errorMessage = models.AddUser(username, password, passwordC, fullname, "requested")
+	}
+
 	if errorMessage.Message != "" {
 		fmt.Println(errorMessage.Message)
 		t := views.SignUpPage()

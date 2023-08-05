@@ -80,3 +80,25 @@ func FetchAllRequests() ([]types.Request, string) {
 
 	return requests, ""
 }
+
+func FetchAdminRequests(db *sql.DB) ([]types.AdminRequest, string) {
+	rows, err := db.Query(`SELECT user_id,username, full_name FROM users where type="requested"`)
+	if err != nil {
+		fmt.Println(err)
+		return nil, "Internal Server Error 1"
+	}
+	defer rows.Close()
+
+	var adminRequests []types.AdminRequest
+	for rows.Next() {
+		var adminRequest types.AdminRequest
+		err := rows.Scan(&adminRequest.UserID, &adminRequest.Username, &adminRequest.Fullname)
+		if err != nil {
+			fmt.Println(err)
+			return nil, "Internal Server Error 2"
+		}
+		adminRequests = append(adminRequests, adminRequest)
+	}
+
+	return adminRequests, ""
+}

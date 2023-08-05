@@ -126,7 +126,7 @@ func AcceptRequest(requestId int) string {
 			}
 		}
 	} else {
-		result, err := db.Exec(`admin/deleteBooks from requests where request_id=?`, requestId)
+		result, err := db.Exec(`delete from requests where request_id=?`, requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -163,4 +163,47 @@ func DeclineRequest(requestId int) string {
 		}
 	}
 	return "error"
+}
+
+func DeclineAdminReq(userId int) string {
+	db, err := Connection()
+	if err != nil {
+		fmt.Println(err)
+		return "Error in connecting to db"
+	}
+	result, err := db.Exec(`update users set type="client" WHERE user_id = ?`, userId)
+	if err != nil {
+		fmt.Println(err)
+		return "Internal Server error"
+	} else {
+		rowsAffected, err := result.RowsAffected()
+		if rowsAffected > 0 {
+			return ""
+		} else if err != nil || rowsAffected == 0 {
+			fmt.Println(err)
+			return "request doesn't exist"
+		}
+	}
+	return ""
+}
+func AcceptAdminReq(userId int) string {
+	db, err := Connection()
+	if err != nil {
+		fmt.Println(err)
+		return "Error in connecting to db"
+	}
+	result, err := db.Exec(`update users set type="admin" WHERE user_id = ?`, userId)
+	if err != nil {
+		fmt.Println(err)
+		return "Internal Server error"
+	} else {
+		rowsAffected, err := result.RowsAffected()
+		if rowsAffected > 0 {
+			return ""
+		} else if err != nil || rowsAffected == 0 {
+			fmt.Println(err)
+			return "request doesn't exist"
+		}
+	}
+	return ""
 }

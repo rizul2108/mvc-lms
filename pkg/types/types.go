@@ -22,6 +22,11 @@ type Request struct {
 	BookTitle   string
 	OwnerName   string
 }
+type AdminRequest struct {
+	UserID   int
+	Username string
+	Fullname string
+}
 
 type ErrorMessage struct {
 	Message string `json:"message"`

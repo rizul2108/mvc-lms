@@ -105,7 +105,12 @@ func TokenMiddleware(next http.Handler) http.Handler {
 				if err == nil {
 					next.ServeHTTP(w, r)
 				} else {
-					http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
+					err = TypeChecker(username, "requested")
+					if err == nil {
+						next.ServeHTTP(w, r)
+					} else {
+						http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
+					}
 				}
 			}
 		}
