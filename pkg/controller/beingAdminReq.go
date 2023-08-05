@@ -36,6 +36,7 @@ func AcceptAdmin(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/admin/adminRequests", http.StatusSeeOther)
 
 }
+
 func DeclineAdmin(w http.ResponseWriter, r *http.Request) {
 	userID := r.FormValue("userID")
 	userId, err := strconv.Atoi(userID)

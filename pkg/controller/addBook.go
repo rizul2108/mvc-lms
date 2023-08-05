@@ -13,6 +13,7 @@ func AddBook(w http.ResponseWriter, request *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	t.Execute(w, nil)
 }
+
 func AddNewBook(w http.ResponseWriter, r *http.Request) {
 	title := r.FormValue("title")
 	author := r.FormValue("author")

@@ -13,6 +13,7 @@ func MakeAdmin(writer http.ResponseWriter, request *http.Request) {
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
+
 func AddAdmin(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")

@@ -38,6 +38,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
 func DeleteRequest(w http.ResponseWriter, r *http.Request) {
 	requestID := r.FormValue("requestId")
 	requestId, error := strconv.Atoi(requestID)
@@ -48,6 +49,7 @@ func DeleteRequest(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
 func ReturnBook(w http.ResponseWriter, r *http.Request) {
 	requestID := r.FormValue("requestId")
 	requestId, error := strconv.Atoi(requestID)
