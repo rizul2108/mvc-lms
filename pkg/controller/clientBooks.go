@@ -15,7 +15,7 @@ func ClientBooks(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "Database error", http.StatusInternalServerError)
 		return
 	}
-	t := views.ClientBooksPage()
+	t := views.ViewPage("booksClient")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, books)
 }

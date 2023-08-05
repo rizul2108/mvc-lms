@@ -9,7 +9,7 @@ import (
 )
 
 func LogIn(writer http.ResponseWriter, request *http.Request) {
-	t := views.LoginPage()
+	t := views.ViewPage("login")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
@@ -19,7 +19,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("Password")
 	jwtToken, userType, errorMessage := models.LoginUser(username, password)
 	if errorMessage.Message != "" {
-		t := views.LoginPage()
+		t := views.ViewPage("login")
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, errorMessage)
 	} else {

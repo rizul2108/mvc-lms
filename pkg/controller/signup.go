@@ -9,7 +9,7 @@ import (
 )
 
 func SignUp(writer http.ResponseWriter, request *http.Request) {
-	t := views.SignUpPage()
+	t := views.ViewPage("signup")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
@@ -34,7 +34,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 
 	if errorMessage.Message != "" {
 		fmt.Println(errorMessage.Message)
-		t := views.SignUpPage()
+		t := views.ViewPage("signup")
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, errorMessage)
 	} else {

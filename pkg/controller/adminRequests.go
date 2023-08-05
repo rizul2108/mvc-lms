@@ -14,7 +14,7 @@ func AdminRequests(w http.ResponseWriter, r *http.Request) {
 	if error != "" {
 		fmt.Println(error)
 	} else {
-		t := views.AdminRequestsPage()
+		t := views.ViewPage("adminRequests")
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, RequestList)
 	}

@@ -6,7 +6,7 @@ import (
 )
 
 func Welcome(writer http.ResponseWriter, request *http.Request) {
-	t := views.WelcomePage()
+	t := views.ViewPage("welcome")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }

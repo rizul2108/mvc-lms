@@ -32,7 +32,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 	if error != "" {
 		fmt.Println(error)
 	} else {
-		t := views.ProfilePage()
+		t := views.ViewPage("clientProfile")
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, ReqList)
 	}

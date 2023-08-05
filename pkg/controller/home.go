@@ -6,7 +6,7 @@ import (
 )
 
 func Home(writer http.ResponseWriter, request *http.Request) {
-	t := views.HomePage()
+	t := views.ViewPage("home")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }

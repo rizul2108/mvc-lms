@@ -9,7 +9,7 @@ import (
 )
 
 func AddBook(w http.ResponseWriter, request *http.Request) {
-	t := views.AddBookPage()
+	t := views.ViewPage("addBook")
 	w.WriteHeader(http.StatusOK)
 	t.Execute(w, nil)
 }
@@ -22,7 +22,7 @@ func AddNewBook(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(err)
 	ErrorMessage := models.AddBook(title, author, quantity)
 	if ErrorMessage != "" {
-		t := views.MakeAdminPage()
+		t := views.ViewPage("makeAdmin")
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, ErrorMessage)
 	} else {
