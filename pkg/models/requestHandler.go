@@ -143,6 +143,7 @@ func AcceptRequest(requestId int) string {
 	}
 	return "error"
 }
+
 func DeclineRequest(requestId int) string {
 	db, err := Connection()
 	if err != nil {
@@ -186,6 +187,7 @@ func DeclineAdminReq(userId int) string {
 	}
 	return ""
 }
+
 func AcceptAdminReq(userId int) string {
 	db, err := Connection()
 	if err != nil {

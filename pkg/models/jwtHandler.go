@@ -3,14 +3,13 @@ package models
 import (
 	"errors"
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"gopkg.in/yaml.v3"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
-	"gopkg.in/yaml.v3"
 )
 
 var jwtKey []byte
@@ -127,6 +126,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 		}
 	})
 }
+
 func TypeChecker(username, Usertype string) error {
 	db, err := Connection()
 	if err != nil {

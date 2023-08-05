@@ -14,6 +14,7 @@ func AddQuantity(id, quantity string) string {
 	}
 	return ""
 }
+
 func DecreaseQuantity(id, quantity string) string {
 	bookID, err := strconv.Atoi(id)
 	qty, err := strconv.Atoi(quantity)
