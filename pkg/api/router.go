@@ -46,7 +46,7 @@ func Start() {
 	r.HandleFunc("/logout", controller.Logout).Methods("GET")
 	pathCSS, err := utils.GetCurrentDirPath()
 	if err == nil {
-		s := http.StripPrefix("/static/", http.FileServer(http.Dir(pathCSS+"/pkg/static/")))
+		s := http.StripPrefix("/static/", http.FileServer(http.Dir(pathCSS+"/templates/static/")))
 		r.PathPrefix("/static/").Handler(s)
 	}
 
