@@ -3,19 +3,20 @@ package models
 import (
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	"gopkg.in/yaml.v3"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"gopkg.in/yaml.v3"
 )
 
 var jwtKey []byte
 
 type JWTConfig struct {
-	JWT_SECRET []byte `yaml:"JWT_SECRET"`
+	JWT_SECRET string `yaml:"JWT_SECRET"` // Change the data type to string
 }
 
 func JwtSecretKey() {
@@ -31,7 +32,9 @@ func JwtSecretKey() {
 	if err != nil {
 		log.Fatalf("failed to decode config: %v", err)
 	}
-	jwtKey = config.JWT_SECRET
+
+	// Convert the JWT_SECRET string to a byte slice
+	jwtKey = []byte(config.JWT_SECRET)
 }
 
 type Claims struct {
@@ -111,7 +114,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 				if err == nil {
 					next.ServeHTTP(w, r)
 				} else {
-					err = TypeChecker(username, "requested")
+					err = TypeChecker(username, "Requested")
 					if err == nil {
 						if r.URL.Path == "/signup" || r.URL.Path == "/login" || r.URL.Path == "/home" {
 							http.Redirect(w, r, "/admin/books", http.StatusSeeOther)

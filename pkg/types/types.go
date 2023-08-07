@@ -1,5 +1,7 @@
 package types
 
+import "time"
+
 type User struct {
 	Fullname           string `json:"Fullname"`
 	Username           string `json:"Username"`
@@ -15,12 +17,15 @@ type Book struct {
 }
 
 type Request struct {
-	RequestID   int
-	BookID      int
-	State       string
-	RequestType string
-	BookTitle   string
-	OwnerName   string
+	RequestID         int
+	BookID            int
+	State             string
+	RequestType       string
+	BookTitle         string
+	OwnerName         string
+	RequestDate       time.Time
+	RequestDateString string
+	Fine              int
 }
 type AdminRequest struct {
 	UserID   int

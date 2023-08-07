@@ -69,7 +69,7 @@
             </div>
           </div>
         </div>
-        {{range .Request}}
+        {{range .}}
         <div class="card-body">
           <div class="col-md-4 p-2">
             <div class="card" style="width: 18rem">
@@ -79,6 +79,8 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">Made by:{{.OwnerName}}</li>
                 <li class="list-group-item">Request Type:{{.RequestType}}</li>
+                <li class="list-group-item">Issued Date:{{.RequestDateString}}</li>
+                <li class="list-group-item">Fine to be paid:{{.Fine}}</li>
               </ul>
               <div class="card-body p-2">
                 <form action="/admin/acceptRequest" method="POST">
@@ -97,57 +99,6 @@
                     type="hidden"
                     name="requestId"
                     value="{{.RequestID}}"
-                    class="form-control"
-                  />
-                  <button class="btn btn-primary btn-sm m-1" type="submit">
-                    Deny
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        {{end}}
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col"><h4>Requests for being Admins</h4></div>
-            <div class="col text-end">
-              <a type="submit" class="btn-primary btn" href="/admin/makeAdmin">
-                Make New Admin
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {{range .AdminRequest}}
-        <div class="card-body">
-          <div class="col-md-4 p-2">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">User Name : {{.Username}}</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Full Name : {{.Fullname}}</li>
-              </ul>
-              <div class="card-body p-2">
-                <form action="/admin/accAdmin" method="POST">
-                  <input
-                    type="hidden"
-                    name="userID"
-                    value="{{.UserID}}"
-                    class="form-control"
-                  />
-                  <button class="btn btn-primary btn-sm m-1" type="submit">
-                    Accept
-                  </button>
-                </form>
-                <form action="/admin/decAdmin" method="POST">
-                  <input
-                    type="hidden"
-                    name="userID"
-                    value="{{.UserID}}"
                     class="form-control"
                   />
                   <button class="btn btn-primary btn-sm m-1" type="submit">

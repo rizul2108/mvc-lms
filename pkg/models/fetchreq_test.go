@@ -1,11 +1,10 @@
 package models
 
 import (
+	"github.com/DATA-DOG/go-sqlmock"
 	"mvc-go/pkg/types"
 	"reflect"
 	"testing"
-
-	"github.com/DATA-DOG/go-sqlmock"
 )
 
 func TestFetchRequests(t *testing.T) {

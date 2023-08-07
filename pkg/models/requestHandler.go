@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"time"
 )
 
 func AddRequest(bookID int, username string) string {
@@ -23,7 +24,8 @@ func AddRequest(bookID int, username string) string {
 	}
 
 	if !reqExists {
-		_, err = db.Exec("INSERT INTO requests (book_id, user_id, req_type, state) VALUES (?, ?, 'borrow', 'requested')", bookID, userID)
+		currentTime := time.Now()
+		_, err = db.Exec("INSERT INTO requests (book_id, user_id, req_type, state,req_date) VALUES (?, ?, 'Borrow', 'Requested',?)", bookID, userID, currentTime)
 		if err != nil {
 			return "Internal Server Error 3"
 		}
@@ -46,7 +48,7 @@ func DeleteRequest(requestId int) string {
 	if error != nil {
 		return "Internal Server Error"
 	}
-	if reqType == "borrow" {
+	if reqType == "Borrow" {
 		result, err := db.Exec("DELETE FROM requests WHERE request_id = ?", requestId)
 		if err != nil {
 			fmt.Println(err)
@@ -60,7 +62,7 @@ func DeleteRequest(requestId int) string {
 			}
 		}
 	} else {
-		result, err := db.Exec(`UPDATE requests SET req_type="accepted", state="owned" WHERE request_id =?`, requestId)
+		result, err := db.Exec(`UPDATE requests SET req_type="Accepted", state="Owned" WHERE request_id =?`, requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -82,7 +84,7 @@ func ReturnBook(requestId int) string {
 		fmt.Println(err)
 		return "Error in connecting to db"
 	}
-	result, err := db.Exec(`update requests set state="requested" , req_type="return" WHERE request_id =?`, requestId)
+	result, err := db.Exec(`update requests set state="Requested" , req_type="return" WHERE request_id =?`, requestId)
 	if err != nil {
 		fmt.Println(err)
 		return "Internal Server error"
@@ -110,8 +112,9 @@ func AcceptRequest(requestId int) string {
 	if error != nil {
 		return "Internal Server Error"
 	}
-	if reqType == "borrow" {
-		result, err := db.Exec(`update requests set req_type="accepted", state="owned" WHERE request_id = ?`, requestId)
+	if reqType == "Borrow" {
+		currentTime := time.Now()
+		result, err := db.Exec(`update requests set req_type="Accepted", state="Owned",req_date=? WHERE request_id = ?`, currentTime, requestId)
 		if err != nil {
 			fmt.Println(err)
 			return "Internal Server error"
@@ -201,6 +204,7 @@ func AcceptAdminReq(userId int) string {
 	} else {
 		rowsAffected, err := result.RowsAffected()
 		if rowsAffected > 0 {
+			db.Exec(`delete from requests WHERE user_id = ?`, userId)
 			return ""
 		} else if err != nil || rowsAffected == 0 {
 			fmt.Println(err)

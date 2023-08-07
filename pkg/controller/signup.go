@@ -29,7 +29,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	if adminRequest == false {
 		str, errorMessage = models.AddUser(username, password, passwordC, fullname, "client")
 	} else {
-		str, errorMessage = models.AddUser(username, password, passwordC, fullname, "requested")
+		str, errorMessage = models.AddUser(username, password, passwordC, fullname, "Requested")
 	}
 
 	if errorMessage.Message != "" {
