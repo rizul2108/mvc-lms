@@ -1,19 +1,13 @@
-# Makefile
-
 # Variables
 EXEC_FILE := mvc
 
-.PHONY: all setup build run open
+.PHONY: all replace&setupMySQL build test run open
 
 # Default target
-all: setup replace build run open
-
-# Set up MySQL
-setup:
-	mysql -u root -p < dump.sql
+all: setup replace&setupMySQL build test run open
 
 #Replace credentials in sampleConfig.yaml
-replace:
+replace&setupMySQL:
 	chmod +x ./scripts/credentialsReplace.sh
 	./scripts/credentialsReplace.sh
 
@@ -34,3 +28,7 @@ run:
 # Open the website in the browser
 open:
 	open http://localhost:9000
+
+migration_down: migrate -path database/migration/ -database "mysql://your_db_username:your_db_password@tcp(localhost:3306)/DB_NAME" -verbose down
+
+migration_fix: migrate -path database/migration/ -database "mysql://your_db_username:your_db_password@tcp(localhost:3306)/DB_NAME" force version

@@ -15,6 +15,6 @@ DB_NAME: $DB_NAME
 JWT_SECRET: "$JWT_SECRET"
 EOF
 
-cp config.yaml ./pkg/models/config.yaml
-
 echo "config.yaml created successfully with the provided values."
+
+migrate -path database/migration/ -database "mysql://$DB_USERNAME:$DB_PASSWORD@tcp(localhost:3306)/$DB_NAME" -verbose up
