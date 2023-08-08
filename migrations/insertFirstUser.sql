@@ -4,4 +4,4 @@ INSERT INTO users (username,full_name,hash,type) VALUES ("admin","iamadmin","$2a
 
 -- +migrate Down
 
-DELETE FROM users where username="admin";
+DELETE FROM users WHERE username="admin";

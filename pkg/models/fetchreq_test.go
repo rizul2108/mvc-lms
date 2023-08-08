@@ -1,10 +1,13 @@
 package models
 
 import (
-	"github.com/DATA-DOG/go-sqlmock"
+	"fmt"
 	"mvc-go/pkg/types"
 	"reflect"
 	"testing"
+	"time"
+
+	"github.com/DATA-DOG/go-sqlmock"
 )
 
 func TestFetchRequests(t *testing.T) {
@@ -15,7 +18,6 @@ func TestFetchRequests(t *testing.T) {
 	}
 	defer db.Close()
 
-	// Define the expected query and results for username query
 	userID := 1
 	username := "testuser"
 	rows := sqlmock.NewRows([]string{"user_id"}).AddRow(userID)
@@ -23,26 +25,28 @@ func TestFetchRequests(t *testing.T) {
 		WithArgs(username).
 		WillReturnRows(rows)
 
-	// Define the expected query and results for requests
-	requestRows := sqlmock.NewRows([]string{"request_id", "book_id", "state", "req_type"}).
-		AddRow(1, 101, "Pending", "Borrow")
-	mock.ExpectQuery("SELECT request_id,book_id, state, req_type FROM requests where user_id=?").
+	currentTime := time.Now()
+	dateString := currentTime.Format("2006-01-02 15:04:05")
+
+	requestRows := sqlmock.NewRows([]string{"request_id", "book_id", "state", "req_type", "req_date"}).
+		AddRow(1, 101, "Requested", "Borrow", dateString)
+	mock.ExpectQuery("SELECT request_id, book_id, state, req_type, req_date FROM requests WHERE user_id=?").
 		WithArgs(userID).
 		WillReturnRows(requestRows)
 
-	// Define the expected query and result for book titles
+	fmt.Print(dateString)
 	bookID := 101
 	bookTitleRow := sqlmock.NewRows([]string{"title"}).AddRow("Book Title 1")
-	mock.ExpectQuery("SELECT title from books where book_id=?").
+	mock.ExpectQuery("SELECT title FROM books WHERE book_id=?").
 		WithArgs(bookID).
 		WillReturnRows(bookTitleRow)
-
-	// Call the function to be tested directly with the mock db object
+	currentTime, err = time.Parse("2006-01-02 15:04:05", dateString)
 	requests, errStr := FetchRequests(db, username)
 
 	// Check the results
 	wantRequests := []types.Request{
-		{RequestID: 1, BookID: 101, State: "Pending", RequestType: "Borrow", BookTitle: "Book Title 1"}}
+		{RequestID: 1, BookID: 101, State: "Requested", RequestType: "Borrow", BookTitle: "Book Title 1", RequestDate: currentTime, RequestDateString: dateString, Fine: 0},
+	}
 	if !reflect.DeepEqual(requests, wantRequests) {
 		t.Errorf("got %v, wanted %v", requests, wantRequests)
 	}

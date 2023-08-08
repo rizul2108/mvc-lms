@@ -3,8 +3,9 @@ package models
 import (
 	"fmt"
 
-	"golang.org/x/crypto/bcrypt"
 	"mvc-go/pkg/types"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 func LoginUser(username, password string) (string, string, types.ErrorMessage) {

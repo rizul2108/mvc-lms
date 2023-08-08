@@ -1,8 +1,9 @@
 package models
 
 import (
-	"golang.org/x/crypto/bcrypt"
 	"mvc-go/pkg/types"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 func hashPassword(password string) (string, error) {

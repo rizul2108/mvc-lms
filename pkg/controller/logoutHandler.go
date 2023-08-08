@@ -6,7 +6,6 @@ import (
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {
-	// Delete the JWT cookie by setting its expiration time to a past value
 	cookie := http.Cookie{
 		Name:    "jwt",
 		Value:   "",

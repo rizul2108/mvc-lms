@@ -137,7 +137,7 @@ func TypeChecker(username, Usertype string) error {
 	}
 
 	var CorrectUser bool
-	err = db.QueryRow(`SELECT EXISTS (select 1 from users where username=? and type=?)`, username, Usertype).Scan(&CorrectUser)
+	err = db.QueryRow(`SELECT EXISTS (S 1 FROM users WHERE username=? and type=?)`, username, Usertype).Scan(&CorrectUser)
 	if err != nil {
 		return err
 	} else if CorrectUser == false {

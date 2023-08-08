@@ -112,7 +112,7 @@ func FetchAllRequests() ([]types.Request, string) {
 }
 
 func FetchAdminRequests(db *sql.DB) ([]types.AdminRequest, string) {
-	rows, err := db.Query(`SELECT user_id,username, full_name FROM users where type="Requested"`)
+	rows, err := db.Query(`SELECT user_id,username, full_name FROM users WHERE type="Requested"`)
 	if err != nil {
 		fmt.Println(err)
 		return nil, "Internal Server Error 1"

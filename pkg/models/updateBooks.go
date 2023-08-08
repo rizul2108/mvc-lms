@@ -10,7 +10,7 @@ func AddQuantity(id, quantity string) string {
 	db, err := Connection()
 	_, err = db.Exec("UPDATE books SET quantity = quantity + ? WHERE book_id = ?", qty, bookID)
 	if err != nil {
-		return "Error executing the update query"
+		return "Error executing the UPDATE query"
 	}
 	return ""
 }
@@ -21,7 +21,7 @@ func DecreaseQuantity(id, quantity string) string {
 	db, err := Connection()
 	_, err = db.Exec("UPDATE books SET quantity = quantity - ? WHERE book_id = ?", qty, bookID)
 	if err != nil {
-		return "Error executing the update query"
+		return "Error executing the UPDATE query"
 	}
 	return ""
 }
