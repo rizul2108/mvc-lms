@@ -77,7 +77,7 @@ func FetchAllRequests() ([]types.Request, string) {
 		FROM requests r
 		JOIN books b ON r.book_id = b.book_id
 		JOIN users u ON r.user_id = u.user_id
-		WHERE (r.req_type = 'return') OR (r.req_type = 'Borrow' AND b.quantity > 0)`)
+		WHERE (r.req_type = 'return') OR (r.req_type = 'Borrow')`)
 	if err != nil {
 		fmt.Println(err)
 		return nil, "Internal Server Error"
@@ -105,6 +105,7 @@ func FetchAllRequests() ([]types.Request, string) {
 			}
 		}
 		request.Fine = fine
+		db.QueryRow(`SELECT COUNT(*) FROM requests WHERE book_id =?`, request.BookID).Scan(&request.BookQuantity)
 		requests = append(requests, request)
 	}
 

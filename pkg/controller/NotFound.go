@@ -6,7 +6,7 @@ import (
 )
 
 func NotFound(writer http.ResponseWriter, _ *http.Request) {
-	t := views.ViewPage("404")
+	t := views.ViewPage("errorNotFound")
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }

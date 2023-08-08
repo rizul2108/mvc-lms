@@ -94,18 +94,34 @@ body {
 	top: 30px;
 	color: #7875B5;
 }
-
 .login__input {
 	border: none;
 	border-bottom: 2px solid #D1D1D4;
-	background: none;
+	background: rgba(255,255,255,0.5);
+	border-radius: 5px;
 	padding: 10px;
 	padding-left: 24px;
 	font-weight: 700;
 	width: 75%;
 	transition: .2s;
-}
-
+	backdrop-filter: blur(10px);
+  }
+  .btn-pmy {
+	background-color: #fff;
+	color: #4c489d;
+	border: none;
+	text-transform: uppercase;
+	font-weight: 700;
+	border-radius: 26px;
+	padding: 10px 20px;
+	transition: background-color 0.3s, color 0.3s;
+	margin:0.5rem;
+  }
+  
+  .btn-pmy:hover {
+	background-color: #6a679e;
+	color: #fff;
+  }
 .login__input:active,
 .login__input:focus,
 .login__input:hover {

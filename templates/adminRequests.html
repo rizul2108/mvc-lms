@@ -37,24 +37,26 @@
         <span class="fs-4">Library</span>
       </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a href="/admin/makeAdmin" class="nav-link">Make New Admin</a>
-        </li>
-        <li class="nav-item">
-          <a href="/admin/books" class="nav-link">Go Back to Books</a>
-        </li>
-        <li class="nav-item">
-          <a href="/admin/adminRequests" class="nav-link"
-            >View Admin Requests</a
-          >
-        </li>
-        <li class="nav-item">
-          <form action="/logout" method="GET">
-            <button type="submit" class="nav-link">Log Out</button>
-          </form>
-        </li>
-      </ul>
+      <form action="/admin/makeAdmin" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+        Make New Admin
+      </button>
+    </form>
+      <form action="/admin/requests" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+          Go Back to Books
+      </button>
+    </form>
+      <form action="/admin/adminRequests" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+          View Admin Requests
+      </button>
+    </form>
+      <form action="/logout" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+          Logout
+      </button>
+    </form>
     </header>
     <div class="container">
       <h1 class="text-center mt-3 mb-3">Requests made by Users</h1>
@@ -62,54 +64,65 @@
         <div class="card-header">
           <div class="row">
             <div class="col"><h4>Requests for Books</h4></div>
-            <div class="col text-end">
-              <a type="submit" class="btn-primary btn" href="/admin/addBook">
-                Add New Book
-              </a>
-            </div>
           </div>
         </div>
-        {{range .}}
         <div class="card-body">
-          <div class="col-md-4 p-2">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">Book Name: {{.BookTitle}}</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Made by:{{.OwnerName}}</li>
-                <li class="list-group-item">Request Type:{{.RequestType}}</li>
-                <li class="list-group-item">Issued Date:{{.RequestDateString}}</li>
-                <li class="list-group-item">Fine to be paid:{{.Fine}}</li>
-              </ul>
-              <div class="card-body p-2">
-                <form action="/admin/acceptRequest" method="POST">
-                  <input
-                    type="hidden"
-                    name="requestId"
-                    value="{{.RequestID}}"
-                    class="form-control"
-                  />
-                  <button class="btn btn-primary btn-sm m-1" type="submit">
-                    Accept
-                  </button>
-                </form>
-                <form action="/admin/declineRequest" method="POST">
-                  <input
-                    type="hidden"
-                    name="requestId"
-                    value="{{.RequestID}}"
-                    class="form-control"
-                  />
-                  <button class="btn btn-primary btn-sm m-1" type="submit">
-                    Deny
-                  </button>
-                </form>
-              </div>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tr>
+                <th>Book Name</th>
+                <th>Made by</th>
+                <th>Request Type</th>
+                <th>Request Date</th>
+                <th>Fine to be paid</th>
+              </tr>
+              {{range .}}
+              <tr>
+                <td>{{.BookTitle}}</td>
+                <td>{{.OwnerName}}</td>
+                <td>{{.RequestType}}</td>
+                <td>{{.RequestDateString}}</td>
+                <td>{{.Fine}}</td>
+                <td>
+                  {{if eq .BookQuantity 0}}
+                  <button
+                  class="btn m-1"
+                  disabled
+                  type="submit"
+                > <s>Accept</s>
+              </button>
+
+                  {{else}}
+                  <form action="/admin/acceptRequest" method="POST">
+                    <input
+                      type="hidden"
+                      name="requestId"
+                      value="{{.RequestID}}"
+                      class="form-control"
+                    />
+                    <button class="btn btn-primary btn-sm m-1" type="submit">
+                      Accept
+                    </button>
+                  </form>
+                   
+                  {{end}}
+                  <form action="/admin/declineRequest" method="POST">
+                    <input
+                      type="hidden"
+                      name="requestId"
+                      value="{{.RequestID}}"
+                      class="form-control"
+                    />
+                    <button class="btn btn-primary btn-sm m-1" type="submit">
+                      Deny
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {{end}}
+            </table>
           </div>
         </div>
-        {{end}}
       </div>
     </div>
 

@@ -36,16 +36,14 @@
         </svg>
         <span class="fs-4">Library</span>
       </a>
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a href="/client/books" class="nav-link">View Available Books</a>
-        </li>
-        <li>
-          <form action="/logout" method="GET">
-            <button type="submit" class="btn-primary btn m-1">Log Out</button>
-          </form>
-        </li>
-      </ul>
+      <form action="/client/books" method="GET">
+        <button type="submit" class="nav-link btn btn-primary">
+          View Books
+        </button>
+      </form>
+      <form action="/logout" method="GET">
+        <button type="submit" class="nav-link btn btn-primary">Log Out</button>
+      </form>
     </header>
     <h1 class="m-5">
       Hi!<br />

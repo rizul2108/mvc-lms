@@ -13,6 +13,7 @@
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css"
     />
     <link rel="stylesheet" href="/static/css/login.css" />
+  
     <title>Make Admin</title>
   </head>
   <body>
@@ -38,15 +39,9 @@
         <span class="fs-4">Library</span>
       </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a
-            href="/admin/books"
-            class="nav-link btn-primary color-white text-white"
-            >Go Back</a
-          >
-        </li>
-      </ul>
+      <form action="/admin/books" method="GET">
+        <button type="submit" class="btn btn-pmy">Go Back</button>
+      </form>
     </header>
     <div class="screen container">
       <div class="screen__content">
@@ -102,7 +97,7 @@
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
           {{ if eq .Message "" }}{{else}}
-          <p style="color: white" class="m-2">Error: {{ .Message }}</p>
+          <p style="color: white" class="m-2">{{ .Message }}</p>
           {{ end }}
         </form>
       </div>

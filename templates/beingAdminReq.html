@@ -37,45 +37,54 @@
         <span class="fs-4">Library</span>
       </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a href="/admin/makeAdmin" class="nav-link">Make New Admin</a>
-        </li>
-        <li class="nav-item">
-          <a href="/admin/books" class="nav-link">Go Back to Books</a>
-        </li>
-        <li class="nav-item">
-          <form action="/logout" method="GET">
-            <button type="submit" class="nav-link">Log Out</button>
-          </form>
-        </li>
-      </ul>
+      <form action="/admin/makeAdmin" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+        Make New Admin
+      </button>
+    </form>
+      <form action="/admin/requests" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+          View Books Requests
+      </button>
+    </form>
+      <form action="/admin/adminRequests" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+          View Admin Requests
+      </button>
+    </form>
+      <form action="/logout" method="GET">        
+        <button type="submit" class="btn btn-primary ">
+          Logout
+      </button>
+    </form>
     </header>
-    <div class="container">
-      <h1 class="text-center mt-3 mb-3">Requests made by Users</h1>
-      <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col"><h4>Requests for being Admins</h4></div>
-            <div class="col text-end">
-              <a type="submit" class="btn-primary btn" href="/admin/makeAdmin">
-                Make New Admin
-              </a>
-            </div>
-          </div>
+    <div class="card m-5">
+      <div
+        class="card-header"
+        style="
+          background: #333;
+          color: #fff;
+          padding: 1.25rem;
+          border-radius: 0.625rem 0.625rem 0 0;
+        "
+      >
+        <div class="row">
+          <div class="col"><h3>Requests for being Admins</h3></div>
         </div>
-
-        {{range .}}
-        <div class="card-body">
-          <div class="col-md-4 p-2">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">User Name : {{.Username}}</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Full Name : {{.Fullname}}</li>
-              </ul>
-              <div class="card-body p-2">
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tr>
+              <th>User Name</th>
+              <th>Full Name</th>
+              <th>Action</th>
+            </tr>
+            {{range .}}
+            <tr>
+              <td>{{.Username}}</td>
+              <td>{{.Fullname}}</td>
+              <td>
                 <form action="/admin/accAdmin" method="POST">
                   <input
                     type="hidden"
@@ -98,11 +107,11 @@
                     Deny
                   </button>
                 </form>
-              </div>
-            </div>
-          </div>
+              </td>
+            </tr>
+            {{end}}
+          </table>
         </div>
-        {{end}}
       </div>
     </div>
     <script

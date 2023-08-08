@@ -3,19 +3,19 @@ package types
 import "time"
 
 type User struct {
-	Fullname           string `json:"Fullname"`
-	Username           string `json:"Username"`
-	Password           string `json:"Password"`
-	PasswordConfirmVal string `json:"PasswordConfirmVal"`
+	Fullname           string
+	Username           string
+	Password           string
+	PasswordConfirmVal string
 }
 
 type Book struct {
-	Quantity int    `json:"quantity"`
-	Title    string `json:"title"`
-	Author   string `json:"author"`
-	ID       int    `json:"id"`
+	Quantity       int
+	IssuedQuantity int
+	Title          string
+	Author         string
+	ID             int
 }
-
 type Request struct {
 	RequestID         int
 	BookID            int
@@ -26,6 +26,7 @@ type Request struct {
 	RequestDate       time.Time
 	RequestDateString string
 	Fine              int
+	BookQuantity      int
 }
 type AdminRequest struct {
 	UserID   int

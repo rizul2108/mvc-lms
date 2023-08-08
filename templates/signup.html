@@ -12,7 +12,9 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css"
     />
+   
     <link rel="stylesheet" href="/static/css/login.css" />
+    
     <title>Sign Up</title>
   </head>
   <body>
@@ -38,16 +40,15 @@
         <span class="fs-4">Library</span>
       </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a href="/login" class="nav-link text-white color-white">Login</a>
-        </li>
-      </ul>
+      <form action="/login" method="GET">
+        <button type="submit" class="btn btn-pmy">Login</button>
+      </form>
     </header>
 
     <div class="screen container">
       <div class="screen__content">
         <form class="login" action="/signup" method="POST">
+          <p style="color: red" class="m-2">{{ .Message }}</p>
           <div class="login__field">
             <i class="login__icon fas fa-user"></i>
             <input
@@ -100,9 +101,6 @@
             <span class="button__text">Sign UP</span>
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
-          {{ if eq .Message "" }}{{else}}
-          <p style="color: white" class="m-2">Error: {{ .Message }}</p>
-          {{ end }}
         </form>
       </div>
       <div class="screen__background">
