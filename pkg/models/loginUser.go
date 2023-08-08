@@ -25,7 +25,7 @@ func LoginUser(username, password string) (string, string, types.ErrorMessage) {
 	}
 
 	if !userExists {
-		errorMsg.Message = "Username already exists"
+		errorMsg.Message = "Username doesn't exist"
 		return "", "", errorMsg
 	}
 

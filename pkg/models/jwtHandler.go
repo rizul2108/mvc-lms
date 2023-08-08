@@ -16,7 +16,7 @@ import (
 var jwtKey []byte
 
 type JWTConfig struct {
-	JWT_SECRET string `yaml:"JWT_SECRET"` // Change the data type to string
+	JWT_SECRET string `yaml:"JWT_SECRET"`
 }
 
 func JwtSecretKey() {
@@ -33,7 +33,6 @@ func JwtSecretKey() {
 		log.Fatalf("failed to decode config: %v", err)
 	}
 
-	// Convert the JWT_SECRET string to a byte slice
 	jwtKey = []byte(config.JWT_SECRET)
 }
 
@@ -85,7 +84,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 				next.ServeHTTP(w, r)
 				return
 			} else {
-				http.Redirect(w, r, "/login", http.StatusSeeOther) // Redirect to login page if token is missing
+				http.Redirect(w, r, "/login", http.StatusSeeOther)
 				return
 			}
 		}
@@ -137,7 +136,7 @@ func TypeChecker(username, Usertype string) error {
 	}
 
 	var CorrectUser bool
-	err = db.QueryRow(`SELECT EXISTS (S 1 FROM users WHERE username=? and type=?)`, username, Usertype).Scan(&CorrectUser)
+	err = db.QueryRow(`SELECT EXISTS (SELECT 1 FROM users WHERE username=? and type=?)`, username, Usertype).Scan(&CorrectUser)
 	if err != nil {
 		return err
 	} else if CorrectUser == false {
