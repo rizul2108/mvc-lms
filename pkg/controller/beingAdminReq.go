@@ -3,12 +3,15 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
+	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
 )
 
 func BeingAdminRequests(w http.ResponseWriter, _ *http.Request) {
+	files := types.PutFileNames()
+
 	db, err := models.Connection()
 	if err != nil {
 		return
@@ -17,7 +20,7 @@ func BeingAdminRequests(w http.ResponseWriter, _ *http.Request) {
 	if errorMsg != "" {
 		fmt.Println(errorMsg)
 	} else {
-		t := views.ViewPage("beingAdminReq")
+		t := views.ViewPage(files.BeingAdminRequests)
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, AdminRequestList)
 	}

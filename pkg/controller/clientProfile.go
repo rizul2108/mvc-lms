@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
+	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
@@ -10,6 +11,8 @@ import (
 )
 
 func Profile(w http.ResponseWriter, r *http.Request) {
+	files := types.PutFileNames()
+
 	cookie, err := r.Cookie("jwt")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -32,7 +35,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 	if error != "" {
 		fmt.Println(error)
 	} else {
-		t := views.ViewPage("clientProfile")
+		t := views.ViewPage(files.Profile)
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, ReqList)
 	}

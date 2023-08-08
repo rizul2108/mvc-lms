@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
+	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
@@ -10,12 +11,14 @@ import (
 )
 
 func ClientBooks(writer http.ResponseWriter, _ *http.Request) {
+	files := types.PutFileNames()
+
 	books, err := models.FetchBooks()
 	if err != nil {
 		http.Error(writer, "Database error", http.StatusInternalServerError)
 		return
 	}
-	t := views.ViewPage("booksClient")
+	t := views.ViewPage(files.BooksClient)
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, books)
 }

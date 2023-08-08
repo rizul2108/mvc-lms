@@ -5,6 +5,6 @@ import (
 )
 
 func ViewPage(fileName string) *template.Template {
-	temp := template.Must(template.ParseFiles("templates/" + fileName + ".html"))
+	temp := template.Must(template.ParseFiles("templates/" + fileName))
 	return temp
 }

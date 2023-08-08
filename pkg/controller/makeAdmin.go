@@ -9,12 +9,16 @@ import (
 )
 
 func MakeAdmin(writer http.ResponseWriter, _ *http.Request) {
-	t := views.ViewPage("makeAdmin")
+	files := types.PutFileNames()
+
+	t := views.ViewPage(files.MakeAdmin)
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
 
 func AddAdmin(w http.ResponseWriter, r *http.Request) {
+	files := types.PutFileNames()
+
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
 	passwordC := r.FormValue("PasswordConfirmVal")
@@ -23,7 +27,7 @@ func AddAdmin(w http.ResponseWriter, r *http.Request) {
 	str, errorMsg := models.AddUser(username, password, passwordC, fullname, "admin")
 	if errorMsg.Message != "" {
 		fmt.Print(errorMsg.Message)
-		t := views.ViewPage("makeAdmin")
+		t := views.ViewPage(files.MakeAdmin)
 		t.Execute(w, errorMsg)
 	} else {
 		fmt.Println(str)

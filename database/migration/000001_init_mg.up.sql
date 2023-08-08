@@ -20,8 +20,8 @@ CREATE TABLE `requests` (
     `book_id` int NOT NULL,
     `user_id` int NOT NULL,  
     `state` enum('Requested', 'Owned') NOT NULL,
-    `req_type` enum('Borrow', 'return', 'Accepted'),  
-    `req_date` DATETIME ,
+    `request_type` enum('Borrow', 'return', 'Accepted'),  
+    `request_date` DATETIME ,
     PRIMARY KEY(`request_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

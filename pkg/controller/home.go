@@ -1,12 +1,15 @@
 package controller
 
 import (
+	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 )
 
 func Home(writer http.ResponseWriter, _ *http.Request) {
-	t := views.ViewPage("home")
+	files := types.PutFileNames()
+
+	t := views.ViewPage(files.Home)
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }

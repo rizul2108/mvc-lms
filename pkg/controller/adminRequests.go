@@ -3,18 +3,20 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
+	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
 )
 
 func AdminRequests(w http.ResponseWriter, _ *http.Request) {
+	files := types.PutFileNames()
 
 	RequestList, error := models.FetchAllRequests()
 	if error != "" {
 		fmt.Println(error)
 	} else {
-		t := views.ViewPage("adminRequests")
+		t := views.ViewPage(files.AdminRequests)
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, RequestList)
 	}
