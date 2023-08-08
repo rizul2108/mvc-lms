@@ -1,7 +1,0 @@
-# config.yaml
-
-DB_USERNAME: root
-DB_PASSWORD: 'letmein'
-DB_HOST: 127.0.0.1:3306
-DB_NAME: lms
-JWT_SECRET: "YOUR_JWT_SECRET"
