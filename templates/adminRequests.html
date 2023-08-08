@@ -37,26 +37,20 @@
         <span class="fs-4">Library</span>
       </a>
 
-      <form action="/admin/makeAdmin" method="GET">        
-        <button type="submit" class="btn btn-primary ">
-        Make New Admin
-      </button>
-    </form>
-      <form action="/admin/requests" method="GET">        
-        <button type="submit" class="btn btn-primary ">
-          Go Back to Books
-      </button>
-    </form>
-      <form action="/admin/adminRequests" method="GET">        
-        <button type="submit" class="btn btn-primary ">
+      <form action="/admin/makeAdmin" method="GET">
+        <button type="submit" class="btn btn-primary">Make New Admin</button>
+      </form>
+      <form action="/admin/requests" method="GET">
+        <button type="submit" class="btn btn-primary">Go Back to Books</button>
+      </form>
+      <form action="/admin/adminRequests" method="GET">
+        <button type="submit" class="btn btn-primary">
           View Admin Requests
-      </button>
-    </form>
-      <form action="/logout" method="GET">        
-        <button type="submit" class="btn btn-primary ">
-          Logout
-      </button>
-    </form>
+        </button>
+      </form>
+      <form action="/logout" method="GET">
+        <button type="submit" class="btn btn-primary">Logout</button>
+      </form>
     </header>
     <div class="container">
       <h1 class="text-center mt-3 mb-3">Requests made by Users</h1>
@@ -85,12 +79,9 @@
                 <td>{{.Fine}}</td>
                 <td>
                   {{if eq .BookQuantity 0}}
-                  <button
-                  class="btn m-1"
-                  disabled
-                  type="submit"
-                > <s>Accept</s>
-              </button>
+                  <button class="btn m-1" disabled type="submit">
+                    <s>Accept</s>
+                  </button>
 
                   {{else}}
                   <form action="/admin/acceptRequest" method="POST">
@@ -104,7 +95,7 @@
                       Accept
                     </button>
                   </form>
-                   
+
                   {{end}}
                   <form action="/admin/declineRequest" method="POST">
                     <input

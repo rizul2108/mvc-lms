@@ -37,16 +37,14 @@
         <span class="fs-4">Library</span>
       </a>
 
-        <form action="/client/profile" method="GET">
-          <button type="submit" class="nav-link btn btn-primary">
-            Go Back to Profile
-          </button>
-        </form>
-          <form action="/logout" method="GET">
-            <button type="submit" class="nav-link btn btn-primary">
-              Log Out
-            </button>
-          </form>
+      <form action="/client/profile" method="GET">
+        <button type="submit" class="nav-link btn btn-primary">
+          Go Back to Profile
+        </button>
+      </form>
+      <form action="/logout" method="GET">
+        <button type="submit" class="nav-link btn btn-primary">Log Out</button>
+      </form>
     </header>
     <div class="card m-5">
       <div
@@ -80,7 +78,7 @@
               <td>
                 {{if eq .Quantity 0}}
                 <button
-                disabled
+                  disabled
                   class="btn btn-primary btn-sm disabled"
                   id="client/issueBook"
                 >
