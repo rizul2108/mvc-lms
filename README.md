@@ -3,8 +3,8 @@
 ## Manual Setup
 Clone the repo. FROM the root directory run the following commands:
 ```
-- go mod vendor
-- go mod tidy
+go mod vendor
+go mod tidy
 ```
 ### MySQL:
 1. Run this command : `migrate -path database/migration/ -database "mysql://your_db_username:your_db_password@tcp(localhost:3306)/DB_NAME" -verbose up`
