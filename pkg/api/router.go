@@ -2,6 +2,7 @@ package api
 
 import (
 	"mvc-go/pkg/controller"
+	"mvc-go/pkg/models"
 	"mvc-go/pkg/utils"
 	"net/http"
 
@@ -11,6 +12,7 @@ import (
 func Start() {
 	r := mux.NewRouter()
 
+	r.Use(models.TokenMiddleware)
 	//common routes
 	r.HandleFunc("/", controller.Welcome).Methods("GET")
 	r.HandleFunc("/home", controller.Home).Methods("GET")
