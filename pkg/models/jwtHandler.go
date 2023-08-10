@@ -98,6 +98,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 		}
 		username := claims.Username
 		err = TypeChecker(username, "admin")
+		err2 := TypeChecker(username, "client")
 		if err == nil {
 			if firstPartOfURL == "admin" {
 				next.ServeHTTP(w, r)
@@ -105,13 +106,17 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			} else {
 				http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 			}
-		} else {
+		} else if err2 == nil {
 			if firstPartOfURL == "client" {
 				next.ServeHTTP(w, r)
 				return
 			} else {
 				http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 			}
+		} else {
+			clearCookie(w)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+			return
 		}
 	})
 
