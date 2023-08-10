@@ -19,7 +19,7 @@ func FetchBooks() ([]types.Book, error) {
 		if err != nil {
 			return nil, err
 		}
-		db.QueryRow(`SELECT COUNT(*) FROM requests WHERE book_id =?`, book.ID).Scan(&book.IssuedQuantity)
+		db.QueryRow(`SELECT COUNT(*) FROM requests WHERE book_id =? AND request_type="Accepted"`, book.ID).Scan(&book.IssuedQuantity)
 
 		books = append(books, book)
 	}

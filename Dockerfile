@@ -1,20 +1,19 @@
-FROM ubuntu:22.04
-
 # Backend Dockerfile
-FROM golang:1.20 AS build
+FROM golang:1.20.6-alpine
 
-WORKDIR /app
+WORKDIR /usr/app
 
-COPY go.mod go.sum ./
-RUN go mod vendor
-RUN go mod tidy
+COPY . /usr/app
+
+RUN apk add --update make
+
+RUN make
 
 COPY . .
 
 # Build the Go application
 RUN go build -o mvc ./cmd/main.go
 
-FROM debian:buster-slim
-COPY --from=build /app/mvc /usr/local/bin/mvc
+EXPOSE 8080
 
-CMD ["mvc"]
+CMD ["./mvc"]

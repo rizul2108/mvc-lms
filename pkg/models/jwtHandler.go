@@ -3,13 +3,14 @@ package models
 import (
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	"gopkg.in/yaml.v3"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"gopkg.in/yaml.v3"
 )
 
 var jwtKey []byte
@@ -78,54 +79,42 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		cookie, err := r.Cookie("jwt")
+
 		if err != nil {
 			if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
 				next.ServeHTTP(w, r)
 				return
 			} else {
+				clearCookie(w)
 				http.Redirect(w, r, "/login", http.StatusSeeOther)
 				return
 			}
 		}
-
 		tokenString := strings.TrimSpace(cookie.Value)
 		claims, err := VerifyToken(tokenString)
 		if err != nil {
-			fmt.Println(claims)
-			fmt.Println(err)
+			clearCookie(w)
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
-		} else {
-			username := claims.Username
+		}
+		username := claims.Username
+		err = TypeChecker(username, "admin")
+		if err == nil {
 			if firstPartOfURL == "admin" {
-				err := TypeChecker(username, "admin")
-				if err == nil {
-					if r.URL.Path == "/signup" || r.URL.Path == "/login" || r.URL.Path == "/home" {
-						http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
-						return
-					}
-					next.ServeHTTP(w, r)
-				} else {
-					http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
-				}
+				next.ServeHTTP(w, r)
+				return
 			} else {
-				err := TypeChecker(username, "client")
-				if err == nil {
-					next.ServeHTTP(w, r)
-				} else {
-					err = TypeChecker(username, "Requested")
-					if err == nil {
-						if r.URL.Path == "/signup" || r.URL.Path == "/login" || r.URL.Path == "/home" {
-							http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
-							return
-						}
-						next.ServeHTTP(w, r)
-					} else {
-						http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
-					}
-				}
+				http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
+			}
+		} else {
+			if firstPartOfURL == "client" {
+				next.ServeHTTP(w, r)
+				return
+			} else {
+				http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 			}
 		}
 	})
+
 }
 
 func TypeChecker(username, Usertype string) error {
@@ -144,4 +133,13 @@ func TypeChecker(username, Usertype string) error {
 	} else {
 		return nil
 	}
+}
+func clearCookie(w http.ResponseWriter) {
+	cookie := http.Cookie{
+		Name:    "jwt",
+		Value:   "",
+		Path:    "/",
+		Expires: time.Now().AddDate(0, 0, -1),
+	}
+	http.SetCookie(w, &cookie)
 }
