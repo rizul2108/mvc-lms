@@ -26,5 +26,4 @@ CREATE TABLE `requests` (
     PRIMARY KEY(`requestID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO users (username,fullName,hash,type) VALUES ("admin","iamadmin","$2a$10$dTT9W.1YqBhy760t54QUV.3ueDACZG/LbELi2PKaXE3PE3/83EYwW","admin");
 
