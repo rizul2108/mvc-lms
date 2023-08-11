@@ -9,7 +9,7 @@ import (
 )
 
 func MakeAdmin(writer http.ResponseWriter, _ *http.Request) {
-	files := types.PutFileNames()
+	files := views.PutFileNames()
 
 	t := views.ViewPage(files.MakeAdmin)
 	writer.WriteHeader(http.StatusOK)
@@ -17,7 +17,7 @@ func MakeAdmin(writer http.ResponseWriter, _ *http.Request) {
 }
 
 func AddAdmin(w http.ResponseWriter, r *http.Request) {
-	files := types.PutFileNames()
+	files := views.PutFileNames()
 
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")

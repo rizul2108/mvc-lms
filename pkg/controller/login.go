@@ -4,20 +4,19 @@ import (
 	// "encoding/json"
 
 	"mvc-go/pkg/models"
-	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 )
 
 func LogIn(writer http.ResponseWriter, _ *http.Request) {
-	files := types.PutFileNames()
+	files := views.PutFileNames()
 	t := views.ViewPage(files.Login)
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
-	files := types.PutFileNames()
+	files := views.PutFileNames()
 
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")

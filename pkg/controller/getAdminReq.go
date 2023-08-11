@@ -3,26 +3,25 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
-	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
 )
 
-func BeingAdminRequests(w http.ResponseWriter, _ *http.Request) {
-	files := types.PutFileNames()
+func GetAdminRequests(w http.ResponseWriter, r *http.Request) {
+	files := views.PutFileNames()
 
 	db, err := models.Connection()
 	if err != nil {
 		return
 	}
-	AdminRequestList, errorMsg := models.FetchAdminRequests(db)
+	adminRequestList, errorMsg := models.FetchAdminRequests(db)
 	if errorMsg != "" {
-		fmt.Println(errorMsg)
+		http.Redirect(w, r, "/admin/serverError", http.StatusSeeOther)
 	} else {
-		t := views.ViewPage(files.BeingAdminRequests)
+		t := views.ViewPage(files.GetAdminRequests)
 		w.WriteHeader(http.StatusOK)
-		t.Execute(w, AdminRequestList)
+		t.Execute(w, adminRequestList)
 	}
 }
 
@@ -48,7 +47,7 @@ func DeclineAdmin(w http.ResponseWriter, r *http.Request) {
 	}
 	errorMessage := models.DeclineAdminReq(userId)
 	if errorMessage != "" {
-		fmt.Println(errorMessage)
+		http.Redirect(w, r, "/admin/serverError", http.StatusSeeOther)
 	}
 	http.Redirect(w, r, "/admin/adminRequests", http.StatusSeeOther)
 }

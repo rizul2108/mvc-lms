@@ -1,22 +1,19 @@
 package controller
 
 import (
-	"fmt"
 	"mvc-go/pkg/models"
-	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
-func ClientBooks(writer http.ResponseWriter, _ *http.Request) {
-	files := types.PutFileNames()
+func ClientBooks(writer http.ResponseWriter, request *http.Request) {
+	files := views.PutFileNames()
 
 	books, err := models.FetchBooks()
-	if err != nil {
-		http.Error(writer, "Database error", http.StatusInternalServerError)
-		return
+	if err != "" {
+		http.Redirect(writer, request, "/client/serverError", http.StatusSeeOther)
 	}
 	t := views.ViewPage(files.BooksClient)
 	writer.WriteHeader(http.StatusOK)
@@ -33,14 +30,14 @@ func AddRequest(w http.ResponseWriter, r *http.Request) {
 	tokenString := strings.TrimSpace(cookie.Value)
 	claims, err := models.VerifyToken(tokenString)
 	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	username := claims.Username
 	error := models.AddRequest(ID, username)
 	if error != "" {
-		fmt.Println(error)
+		http.Redirect(w, r, "/client/serverError", http.StatusSeeOther)
 	}
 	http.Redirect(w, r, "/client/books", http.StatusSeeOther)
 

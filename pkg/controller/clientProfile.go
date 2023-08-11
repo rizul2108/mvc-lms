@@ -3,7 +3,6 @@ package controller
 import (
 	"fmt"
 	"mvc-go/pkg/models"
-	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
@@ -11,15 +10,11 @@ import (
 )
 
 func Profile(w http.ResponseWriter, r *http.Request) {
-	files := types.PutFileNames()
+	files := views.PutFileNames()
 
 	cookie, err := r.Cookie("jwt")
 	if err != nil {
-		if err == http.ErrNoCookie {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 	tokenString := strings.TrimSpace(cookie.Value)
@@ -33,7 +28,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 
 	ReqList, error := models.FetchRequests(db, username)
 	if error != "" {
-		fmt.Println(error)
+		http.Redirect(w, r, "/client/serverError", http.StatusSeeOther)
 	} else {
 		t := views.ViewPage(files.Profile)
 		w.WriteHeader(http.StatusOK)
@@ -49,6 +44,8 @@ func DeleteRequest(w http.ResponseWriter, r *http.Request) {
 		err := models.DeleteRequest(requestId)
 		if err == "" {
 			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
+		} else {
+			http.Redirect(w, r, "/client/serverError", http.StatusSeeOther)
 		}
 	}
 }
@@ -62,7 +59,7 @@ func ReturnBook(w http.ResponseWriter, r *http.Request) {
 		if err == "" {
 			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 		} else {
-
+			http.Redirect(w, r, "/client/serverError", http.StatusSeeOther)
 		}
 	}
 }

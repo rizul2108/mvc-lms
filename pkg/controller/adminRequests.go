@@ -1,24 +1,22 @@
 package controller
 
 import (
-	"fmt"
 	"mvc-go/pkg/models"
-	"mvc-go/pkg/types"
 	"mvc-go/pkg/views"
 	"net/http"
 	"strconv"
 )
 
-func AdminRequests(w http.ResponseWriter, _ *http.Request) {
-	files := types.PutFileNames()
+func AdminRequests(w http.ResponseWriter, r *http.Request) {
+	files := views.PutFileNames()
 
-	RequestList, error := models.FetchAllRequests()
+	requestList, error := models.FetchAllRequests()
 	if error != "" {
-		fmt.Println(error)
+		http.Redirect(w, r, "/admin/serverError", http.StatusSeeOther)
 	} else {
 		t := views.ViewPage(files.AdminRequests)
 		w.WriteHeader(http.StatusOK)
-		t.Execute(w, RequestList)
+		t.Execute(w, requestList)
 	}
 }
 
@@ -30,7 +28,7 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	errorMessage := models.AcceptRequest(requestID)
 	if errorMessage != "" {
-		fmt.Println(errorMessage)
+		http.Redirect(w, r, "/admin/serverError", http.StatusSeeOther)
 	}
 	http.Redirect(w, r, "/admin/requests", http.StatusSeeOther)
 }
@@ -43,7 +41,7 @@ func DeclineRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	errorMessage := models.DeclineRequest(requestID)
 	if errorMessage != "" {
-		fmt.Println(errorMessage)
+		http.Redirect(w, r, "/admin/serverError", http.StatusSeeOther)
 	}
 	http.Redirect(w, r, "/admin/requests", http.StatusSeeOther)
 

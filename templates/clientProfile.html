@@ -76,7 +76,7 @@
               <td>{{.Fine}}</td>
               {{if eq .State "Requested"}}
               <td>
-                <form action="/client/delReq" method="POST" id="client/delReq">
+                <form action="/client/deleteRequest" method="POST" id="client/deleteRequest">
                   <input
                     type="hidden"
                     name="requestId"
@@ -95,9 +95,9 @@
               {{else}}
               <td>
                 <form
-                  action="/client/retBook"
+                  action="/client/returnBook"
                   method="POST"
-                  id="client/retBook"
+                  id="client/returnBook"
                 >
                   <input
                     type="hidden"

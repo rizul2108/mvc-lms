@@ -9,7 +9,7 @@ import (
 )
 
 func SignUp(writer http.ResponseWriter, _ *http.Request) {
-	files := types.PutFileNames()
+	files := views.PutFileNames()
 
 	t := views.ViewPage(files.Signup)
 	writer.WriteHeader(http.StatusOK)
@@ -35,7 +35,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if errorMessage.Message != "" {
-		files := types.PutFileNames()
+		files := views.PutFileNames()
 
 		t := views.ViewPage(files.Signup)
 		w.WriteHeader(http.StatusOK)
