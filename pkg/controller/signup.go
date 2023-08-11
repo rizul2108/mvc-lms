@@ -17,6 +17,7 @@ func SignUp(writer http.ResponseWriter, _ *http.Request) {
 }
 
 func AddUser(w http.ResponseWriter, r *http.Request) {
+
 	username := r.FormValue("Username")
 	password := r.FormValue("Password")
 	passwordC := r.FormValue("PasswordConfirmVal")

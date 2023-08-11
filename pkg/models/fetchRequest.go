@@ -15,7 +15,7 @@ func FetchRequests(db *sql.DB, username string) ([]types.Request, string) {
 		return nil, "User not found"
 	}
 
-	rows, err := db.Query("SELECT request_id, book_id, state, request_type, request_date FROM requests WHERE user_id=?", userID)
+	rows, err := db.Query("SELECT requestID, book_id, state, requestType, requestDate FROM requests WHERE user_id=?", userID)
 	if err != nil {
 		fmt.Println(err)
 		return nil, "Internal Server Error 1"
@@ -73,11 +73,11 @@ func FetchAllRequests() ([]types.Request, string) {
 
 	var userID int
 	rows, err := db.Query(`
-		SELECT r.request_id, r.book_id, r.state, r.request_type, b.title, u.full_name, r.user_id, r.request_date
+		SELECT r.requestID, r.book_id, r.state, r.requestType, b.title, u.full_name, r.user_id, r.requestDate
 		FROM requests r
 		JOIN books b ON r.book_id = b.book_id
 		JOIN users u ON r.user_id = u.user_id
-		WHERE (r.request_type = 'return') OR (r.request_type = 'Borrow')`)
+		WHERE (r.requestType = 'return') OR (r.requestType = 'Borrow')`)
 	if err != nil {
 		fmt.Println(err)
 		return nil, "Internal Server Error"

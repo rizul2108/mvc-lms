@@ -16,13 +16,13 @@ CREATE TABLE `books` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `requests` (
-    `request_id` int NOT NULL AUTO_INCREMENT,
+    `requestID` int NOT NULL AUTO_INCREMENT,
     `book_id` int NOT NULL,
     `user_id` int NOT NULL,  
     `state` enum('Requested', 'Owned') NOT NULL,
-    `request_type` enum('Borrow', 'return', 'Accepted'),  
-    `request_date` DATETIME ,
-    PRIMARY KEY(`request_id`)
+    `requestType` enum('Borrow', 'return', 'Accepted'),  
+    `requestDate` DATETIME ,
+    PRIMARY KEY(`requestID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO users (username,full_name,hash,type) VALUES ("admin","iamadmin","$2a$10$dTT9W.1YqBhy760t54QUV.3ueDACZG/LbELi2PKaXE3PE3/83EYwW","admin");

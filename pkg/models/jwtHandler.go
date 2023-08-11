@@ -62,11 +62,9 @@ func VerifyToken(tokenString string) (*Claims, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
 		return claims, nil
 	}
-
 	return nil, fmt.Errorf("Invalid token")
 }
 

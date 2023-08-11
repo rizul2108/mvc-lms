@@ -24,7 +24,7 @@ func AddUser(username, password, passwordC, fullname, user_type string) (string,
 
 	db, err := Connection()
 	if err != nil {
-		errorMsg.Message = "Passwords didn't match"
+		errorMsg.Message = "Error in connecting to Server"
 		return "", errorMsg
 	}
 	defer db.Close()
@@ -49,7 +49,7 @@ func AddUser(username, password, passwordC, fullname, user_type string) (string,
 
 	_, err = db.Exec(`INSERT INTO users (username, full_name,hash,type) VALUES (?, ?, ?,?)`, username, fullname, hashedPassword, user_type)
 	if err != nil {
-		errorMsg.Message = "Internal Server Error 4"
+		errorMsg.Message = "Internal Server Error"
 		return "", errorMsg
 	}
 

@@ -28,9 +28,9 @@ func TestFetchRequests(t *testing.T) {
 	currentTime := time.Now()
 	dateString := currentTime.Format("2006-01-02 15:04:05")
 
-	requestRows := sqlmock.NewRows([]string{"request_id", "book_id", "state", "request_type", "request_date"}).
+	requestRows := sqlmock.NewRows([]string{"requestID", "book_id", "state", "requestType", "requestDate"}).
 		AddRow(1, 101, "Requested", "Borrow", dateString)
-	mock.ExpectQuery("SELECT request_id, book_id, state, request_type, request_date FROM requests WHERE user_id=?").
+	mock.ExpectQuery("SELECT requestID, book_id, state, requestType, requestDate FROM requests WHERE user_id=?").
 		WithArgs(userID).
 		WillReturnRows(requestRows)
 

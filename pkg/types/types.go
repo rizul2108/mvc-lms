@@ -3,10 +3,9 @@ package types
 import "time"
 
 type User struct {
-	Fullname           string
-	Username           string
-	Password           string
-	PasswordConfirmVal string
+	Fullname string
+	Username string
+	Password string
 }
 
 type Book struct {
