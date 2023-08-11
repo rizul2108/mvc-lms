@@ -1,12 +1,10 @@
-# Variables
 EXEC_FILE := mvc
 
 .PHONY: all replace&setupMySQL build test run open
 
-# Default target
 all: replace&setupMySQL build test run open
 
-#Replace credentials in sampleConfig.yaml
+# Replace credentials in sampleConfig.yaml
 replace&setupMySQL:
 	chmod +x ./scripts/credentialsReplace.sh
 	./scripts/credentialsReplace.sh
