@@ -25,3 +25,13 @@ func DecreaseQuantity(id, quantity string) string {
 	}
 	return ""
 }
+
+func DeleteBook(id string) string {
+	bookID, err := strconv.Atoi(id)
+	db, err := Connection()
+	_, err = db.Exec("DELETE FROM books WHERE bookID = ?", bookID)
+	if err != nil {
+		return "Error executing the UPDATE query"
+	}
+	return ""
+}

@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	"mvc-go/pkg/types"
 	"time"
 )
@@ -96,7 +97,11 @@ func FetchAllRequests() ([]types.Request, string) {
 			}
 		}
 		request.Fine = fine
-		db.QueryRow(`SELECT COUNT(*) FROM requests WHERE bookID =?`, request.BookID).Scan(&request.BookQuantity)
+		request.BookQuantity = 1
+		if request.RequestType == "Borrow" {
+			db.QueryRow(`SELECT quantity FROM books WHERE bookID =?`, request.BookID).Scan(&request.BookQuantity)
+		}
+		fmt.Println(request.BookQuantity)
 		requests = append(requests, request)
 	}
 

@@ -49,3 +49,16 @@ func DecreaseQuantity(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func DeleteBook(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookID")
+	err := models.DeleteBook(bookID)
+	if err != "" {
+		files := types.PutFileNames()
+		t := views.ViewPage(files.AdminBooks)
+		w.WriteHeader(http.StatusOK)
+		t.Execute(w, err)
+	} else {
+		http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
+	}
+}

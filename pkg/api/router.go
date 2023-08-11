@@ -38,6 +38,7 @@ func Start() {
 	r.HandleFunc("/admin/adminRequests", controller.BeingAdminRequests).Methods("GET")
 	r.HandleFunc("/admin/makeAdmin", controller.AddAdmin).Methods("POST")
 	r.HandleFunc("/admin/addBook", controller.AddNewBook).Methods("POST")
+	r.HandleFunc("/admin/deleteBook", controller.DeleteBook).Methods("POST")
 	r.HandleFunc("/admin/books", controller.AdminBooks).Methods("GET")
 	r.HandleFunc("/admin/makeAdmin", controller.MakeAdmin).Methods("GET")
 	r.HandleFunc("/admin/decAdmin", controller.DeclineAdmin).Methods("POST")

@@ -172,6 +172,34 @@
                     </button>
                   </div>
                 </form>
+                {{end}} {{if eq .IssuedQuantity 0}}
+                <form action="/admin/deleteBook" method="POST">
+                  <div class="input-group mb-3">
+                    <input
+                      type="hidden"
+                      name="bookID"
+                      value="{{.ID}}"
+                      class="form-control"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="submit"
+                      id="button-addon1"
+                    >
+                      Delete Book
+                    </button>
+                  </div>
+                </form>
+                {{else}}
+                <button
+                  class="btn btn-outline-secondary"
+                  type="submit"
+                  id="button-addon1"
+                  disabled
+                >
+                  <s>Delete Book</s>
+                </button>
+
                 {{end}}
               </td>
             </tr>
