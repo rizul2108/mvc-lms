@@ -1,8 +1,6 @@
 package models
 
 import (
-	"fmt"
-
 	"mvc-go/pkg/types"
 
 	"golang.org/x/crypto/bcrypt"
@@ -44,7 +42,7 @@ func LoginUser(username, password string) (string, string, types.ErrorMessage) {
 
 	jwtToken, err := GenerateToken(username)
 	if err != nil {
-		fmt.Println(err)
+
 		errorMsg.Message = "Internal server error in jwt"
 		return "", "", errorMsg
 	}

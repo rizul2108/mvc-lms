@@ -2,7 +2,6 @@ package models
 
 import (
 	"database/sql"
-	"fmt"
 	"mvc-go/pkg/types"
 	"time"
 )
@@ -11,13 +10,11 @@ func FetchRequests(db *sql.DB, username string) ([]types.Request, string) {
 	var userID int
 	err := db.QueryRow("SELECT userID FROM users WHERE username=?", username).Scan(&userID)
 	if err != nil {
-		fmt.Println(err)
 		return nil, "User not found"
 	}
 
 	rows, err := db.Query("SELECT requestID, bookID, state, requestType, requestDate FROM requests WHERE userID=?", userID)
 	if err != nil {
-		fmt.Println(err)
 		return nil, "Internal Server Error 1"
 	}
 	defer rows.Close()
@@ -29,12 +26,10 @@ func FetchRequests(db *sql.DB, username string) ([]types.Request, string) {
 		var request types.Request
 		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.RequestType, &request.RequestDateString)
 		if err != nil {
-			fmt.Println(err)
 			return nil, "Internal Server Error 2"
 		}
 		request.RequestDate, err = time.Parse("2006-01-02 15:04:05", request.RequestDateString)
 		if err != nil {
-			fmt.Println(err)
 			return nil, "Internal Server Error 3"
 		}
 		fine := 0
@@ -52,7 +47,6 @@ func FetchRequests(db *sql.DB, username string) ([]types.Request, string) {
 		var bookTitle string
 		err = db.QueryRow("SELECT title FROM books WHERE bookID=?", request.BookID).Scan(&bookTitle)
 		if err != nil {
-			fmt.Println(err)
 			return nil, "Internal Server Error 3"
 		}
 		request.BookTitle = bookTitle
@@ -66,7 +60,6 @@ func FetchRequests(db *sql.DB, username string) ([]types.Request, string) {
 func FetchAllRequests() ([]types.Request, string) {
 	db, err := Connection()
 	if err != nil {
-		fmt.Println(err)
 		return nil, "Internal Server Error 2"
 	}
 	defer db.Close()
@@ -79,7 +72,6 @@ func FetchAllRequests() ([]types.Request, string) {
 		JOIN users u ON r.userID = u.userID
 		WHERE (r.requestType = 'return') OR (r.requestType = 'Borrow')`)
 	if err != nil {
-		fmt.Println(err)
 		return nil, "Internal Server Error"
 	}
 	defer rows.Close()
@@ -89,7 +81,6 @@ func FetchAllRequests() ([]types.Request, string) {
 		var request types.Request
 		err := rows.Scan(&request.RequestID, &request.BookID, &request.State, &request.RequestType, &request.BookTitle, &request.OwnerName, &userID, &request.RequestDateString)
 		if err != nil {
-			fmt.Println(err)
 			return nil, "Internal Server Error"
 		}
 		request.RequestDate, err = time.Parse("2006-01-02 15:04:05", request.RequestDateString)
@@ -115,7 +106,6 @@ func FetchAllRequests() ([]types.Request, string) {
 func FetchAdminRequests(db *sql.DB) ([]types.AdminRequest, string) {
 	rows, err := db.Query(`SELECT userID,username, fullName FROM users WHERE type="Requested"`)
 	if err != nil {
-		fmt.Println(err)
 		return nil, "Internal Server Error 1"
 	}
 	defer rows.Close()
@@ -125,7 +115,6 @@ func FetchAdminRequests(db *sql.DB) ([]types.AdminRequest, string) {
 		var adminRequest types.AdminRequest
 		err := rows.Scan(&adminRequest.UserID, &adminRequest.Username, &adminRequest.Fullname)
 		if err != nil {
-			fmt.Println(err)
 			return nil, "Internal Server Error 2"
 		}
 		adminRequests = append(adminRequests, adminRequest)

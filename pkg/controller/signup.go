@@ -28,7 +28,6 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 
 	var errorMessage types.ErrorMessage
 	var str string
-	fmt.Println(adminRequest)
 	if adminRequest == false {
 		str, errorMessage = models.AddUser(username, password, passwordC, fullname, "client")
 	} else {
@@ -38,7 +37,6 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	if errorMessage.Message != "" {
 		files := types.PutFileNames()
 
-		fmt.Println(errorMessage.Message)
 		t := views.ViewPage(files.Signup)
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, errorMessage)

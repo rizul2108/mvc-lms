@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"mvc-go/pkg/types"
 	"reflect"
 	"testing"
@@ -34,7 +33,6 @@ func TestFetchRequests(t *testing.T) {
 		WithArgs(userID).
 		WillReturnRows(requestRows)
 
-	fmt.Print(dateString)
 	bookID := 101
 	bookTitleRow := sqlmock.NewRows([]string{"title"}).AddRow("Book Title 1")
 	mock.ExpectQuery("SELECT title FROM books WHERE bookID=?").

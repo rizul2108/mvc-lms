@@ -62,7 +62,7 @@ func ReturnBook(w http.ResponseWriter, r *http.Request) {
 		if err == "" {
 			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
 		} else {
-			fmt.Println(err)
+
 		}
 	}
 }
