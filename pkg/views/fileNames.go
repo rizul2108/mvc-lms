@@ -7,7 +7,7 @@ func PutFileNames() types.FileNames {
 		AddBook:           "addBook.html",
 		AdminBooks:        "adminBooks.html",
 		AdminRequests:     "adminRequests.html",
-		GetAdminRequests:  "getAdminReq.html",
+		GetAdminRequests:  "getAdminRequests.html",
 		BooksClient:       "booksClient.html",
 		Profile:           "clientProfile.html",
 		ErrorNotFound:     "errorNotFound.html",
