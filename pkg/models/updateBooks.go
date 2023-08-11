@@ -8,7 +8,7 @@ func AddQuantity(id, quantity string) string {
 	bookID, err := strconv.Atoi(id)
 	qty, err := strconv.Atoi(quantity)
 	db, err := Connection()
-	_, err = db.Exec("UPDATE books SET quantity = quantity + ? WHERE book_id = ?", qty, bookID)
+	_, err = db.Exec("UPDATE books SET quantity = quantity + ? WHERE bookID = ?", qty, bookID)
 	if err != nil {
 		return "Error executing the UPDATE query"
 	}
@@ -19,7 +19,7 @@ func DecreaseQuantity(id, quantity string) string {
 	bookID, err := strconv.Atoi(id)
 	qty, err := strconv.Atoi(quantity)
 	db, err := Connection()
-	_, err = db.Exec("UPDATE books SET quantity = quantity - ? WHERE book_id = ?", qty, bookID)
+	_, err = db.Exec("UPDATE books SET quantity = quantity - ? WHERE bookID = ?", qty, bookID)
 	if err != nil {
 		return "Error executing the UPDATE query"
 	}

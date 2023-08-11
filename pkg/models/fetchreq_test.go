@@ -20,24 +20,24 @@ func TestFetchRequests(t *testing.T) {
 
 	userID := 1
 	username := "testuser"
-	rows := sqlmock.NewRows([]string{"user_id"}).AddRow(userID)
-	mock.ExpectQuery("SELECT user_id FROM users WHERE username=?").
+	rows := sqlmock.NewRows([]string{"userID"}).AddRow(userID)
+	mock.ExpectQuery("SELECT userID FROM users WHERE username=?").
 		WithArgs(username).
 		WillReturnRows(rows)
 
 	currentTime := time.Now()
 	dateString := currentTime.Format("2006-01-02 15:04:05")
 
-	requestRows := sqlmock.NewRows([]string{"requestID", "book_id", "state", "requestType", "requestDate"}).
+	requestRows := sqlmock.NewRows([]string{"requestID", "bookID", "state", "requestType", "requestDate"}).
 		AddRow(1, 101, "Requested", "Borrow", dateString)
-	mock.ExpectQuery("SELECT requestID, book_id, state, requestType, requestDate FROM requests WHERE user_id=?").
+	mock.ExpectQuery("SELECT requestID, bookID, state, requestType, requestDate FROM requests WHERE userID=?").
 		WithArgs(userID).
 		WillReturnRows(requestRows)
 
 	fmt.Print(dateString)
 	bookID := 101
 	bookTitleRow := sqlmock.NewRows([]string{"title"}).AddRow("Book Title 1")
-	mock.ExpectQuery("SELECT title FROM books WHERE book_id=?").
+	mock.ExpectQuery("SELECT title FROM books WHERE bookID=?").
 		WithArgs(bookID).
 		WillReturnRows(bookTitleRow)
 	currentTime, err = time.Parse("2006-01-02 15:04:05", dateString)

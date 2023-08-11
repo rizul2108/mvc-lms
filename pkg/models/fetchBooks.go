@@ -6,7 +6,7 @@ import (
 
 func FetchBooks() ([]types.Book, error) {
 	db, err := Connection()
-	rows, err := db.Query("SELECT book_id, title, author, quantity FROM books")
+	rows, err := db.Query("SELECT bookID, title, author, quantity FROM books")
 	if err != nil {
 		return nil, err
 	}
@@ -19,7 +19,7 @@ func FetchBooks() ([]types.Book, error) {
 		if err != nil {
 			return nil, err
 		}
-		db.QueryRow(`SELECT COUNT(*) FROM requests WHERE book_id =? AND requestType="Accepted"`, book.ID).Scan(&book.IssuedQuantity)
+		db.QueryRow(`SELECT COUNT(*) FROM requests WHERE bookID =? AND requestType="Accepted"`, book.ID).Scan(&book.IssuedQuantity)
 
 		books = append(books, book)
 	}
