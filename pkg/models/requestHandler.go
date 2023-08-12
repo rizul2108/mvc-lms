@@ -30,7 +30,7 @@ func AddRequest(bookID int, username string) string {
 		}
 		return ""
 	} else {
-		return "Book Already existed"
+		return ""
 	}
 }
 
@@ -66,7 +66,7 @@ func DeleteRequest(requestId int) string {
 			if rowsAffected > 0 {
 				return ""
 			} else if err != nil || rowsAffected == 0 {
-				return "request doesn't exist"
+				return "Request doesn't exist"
 			}
 		}
 	}

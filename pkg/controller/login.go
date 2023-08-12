@@ -21,7 +21,29 @@ func ClientLogIn(writer http.ResponseWriter, _ *http.Request) {
 	t.Execute(writer, nil)
 }
 
-func LoginUser(w http.ResponseWriter, r *http.Request) {
+func ClientLogin(w http.ResponseWriter, r *http.Request) {
+	files := views.PutFileNames()
+
+	username := r.FormValue("Username")
+	password := r.FormValue("Password")
+	jwtToken, userType, errorMessage := models.LoginUser(username, password)
+	if errorMessage.Message != "" {
+		t := views.ViewPage(files.ClientLogin)
+		w.WriteHeader(http.StatusOK)
+		t.Execute(w, errorMessage)
+	} else if userType == "admin" {
+		http.Redirect(w, r, "/adminLogin", http.StatusSeeOther)
+	} else {
+		http.SetCookie(w, &http.Cookie{
+			Name:     "jwt",
+			Value:    jwtToken,
+			Path:     "/",
+			HttpOnly: true,
+		})
+		http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
+	}
+}
+func AdminLogin(w http.ResponseWriter, r *http.Request) {
 	files := views.PutFileNames()
 
 	username := r.FormValue("Username")
@@ -31,6 +53,8 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		t := views.ViewPage(files.AdminLogin)
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, errorMessage)
+	} else if userType == "client" {
+		http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 	} else {
 		http.SetCookie(w, &http.Cookie{
 			Name:     "jwt",
@@ -38,10 +62,6 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 			Path:     "/",
 			HttpOnly: true,
 		})
-		if userType == "client" {
-			http.Redirect(w, r, "/client/profile", http.StatusSeeOther)
-		} else {
-			http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
-		}
+		http.Redirect(w, r, "/admin/books", http.StatusSeeOther)
 	}
 }
