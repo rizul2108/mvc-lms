@@ -35,3 +35,22 @@ chmod +x ./scripts/setup.sh
 
 The username as well as password of the first admin is `admin` 
 You can make new admins after logging in using the above mentioned credentials
+
+## For Virtual Hosting on Ubuntu
+
+Replace you_domain_name by the domain name you want to access the website.
+1. Install apache2 : `sudo apt install apache2`
+2. `sudo a2enmod proxy proxy_http`
+3. `sudo nano /etc/apache2/sites-available/your_domain_name.conf` 
+4. Copy and paste the virtual host file.
+5. `sudo a2ensite your_domain_name.conf`
+6. `sudo a2dissite 000-default.conf`
+7. `sudo apache2ctl configtest`
+8. `sudo nano /etc/hosts`
+Add the following line:
+```
+127.0.0.1  your_domain_name
+```
+9. `sudo systemctl restart apache2`
+10. `sudo systemctl status apache2`
+Check your_domain_name on your browser

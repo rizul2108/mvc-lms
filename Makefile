@@ -23,6 +23,11 @@ test:
 run:
 	./$(EXEC_FILE)
 
+#Setup Virtual Host
+setUpVirtualHost:
+	chmod +x ./scripts/virtualHostSetup.sh
+	./scripts/virtualHostSetup.sh
+
 # Open the website in the browser
 open:
 	open http://localhost:9000

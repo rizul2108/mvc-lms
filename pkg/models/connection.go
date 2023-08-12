@@ -23,7 +23,6 @@ func dsn(config Config) string {
 }
 
 func Connection() (*sql.DB, error) {
-	// Read the YAML configuration file
 	configFile, err := os.Open("config.yaml")
 	if err != nil {
 		log.Fatalf("failed to open config file: %v", err)
@@ -44,8 +43,8 @@ func Connection() (*sql.DB, error) {
 		return nil, err
 	}
 
-	db.SetMaxOpenConns(20)
-	db.SetMaxIdleConns(20)
+	db.SetMaxOpenConns(100)
+	db.SetMaxIdleConns(100)
 	db.SetConnMaxLifetime(time.Minute * 5)
 
 	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)

@@ -3,3 +3,4 @@ vendor/
 .env
 config.yaml
 dump.sql
+mvc.sdslabs.local.conf
