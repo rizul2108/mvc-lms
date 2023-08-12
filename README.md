@@ -23,20 +23,7 @@ Run below commands after enterring your respective credentials
 ### Accessing the website
 1. Open localhost:9000 on your browser
 
-## Setup using Makefile
-Run command `make` in root directory 
-
-## Setup using bash script 
-Run commands 
-```
-chmod +x ./scripts/setup.sh
- ./scripts/setup.sh
-```
-
-The username as well as password of the first admin is `admin` 
-You can make new admins after logging in using the above mentioned credentials
-
-## For Virtual Hosting on Ubuntu
+### For Virtual Hosting on Ubuntu
 
 Replace you_domain_name by the domain name you want to access the website.
 1. Install apache2 : `sudo apt install apache2`
@@ -54,3 +41,18 @@ Add the following line:
 9. `sudo systemctl restart apache2`
 10. `sudo systemctl status apache2`
 Check your_domain_name on your browser
+
+## Setup using Makefile
+Run command `make` in root directory 
+To host your website virtually on a custom domain name run these commands :
+```
+chmod +x ./scripts/virtualHostSetup.sh
+ ./scripts/virtualHostSetup.sh
+```
+## Setup using bash script 
+Run commands 
+```
+chmod +x ./scripts/setup.sh
+ ./scripts/setup.sh
+```
+

@@ -1,6 +1,6 @@
 EXEC_FILE := mvc
 
-.PHONY: all replace&setupMySQL build test run open
+.PHONY: all replace&setupMySQL build test setUpVirtualHost run 
 
 all: replace&setupMySQL build test run open
 
@@ -19,16 +19,15 @@ build:
 test:
 	go test ./pkg/models
 
-# Run the server
-run:
-	./$(EXEC_FILE)
-
 #Setup Virtual Host
 setUpVirtualHost:
 	chmod +x ./scripts/virtualHostSetup.sh
 	./scripts/virtualHostSetup.sh
 
-# Open the website in the browser
-open:
-	open http://localhost:9000
+# Run the server
+run:
+	./${EXEC_FILE}
+	
+
+
 

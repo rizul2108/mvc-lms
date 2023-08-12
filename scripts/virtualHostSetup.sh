@@ -1,6 +1,7 @@
 #!/bin/bash
 
 read -p "Enter your domain name: " domain_name
+read -p "Enter your email: " server_admin_email
 
 sudo apt update
 sudo apt install apache2
@@ -29,6 +30,4 @@ echo "127.0.0.1  $domain_name" | sudo tee -a /etc/hosts
 
 sudo systemctl restart apache2
 
-sudo systemctl status apache2
-
-echo "Setup completed. You can now check your website at http://$domain_name"
+open http://$domain_name

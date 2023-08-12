@@ -33,5 +33,9 @@ func DeleteBook(id string) string {
 	if err != nil {
 		return "Error executing the UPDATE query"
 	}
+	_, err = db.Exec("DELETE FROM requests WHERE bookID = ?", bookID)
+	if err != nil {
+		return "Error executing the UPDATE query"
+	}
 	return ""
 }
