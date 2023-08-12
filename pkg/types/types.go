@@ -47,7 +47,8 @@ type FileNames struct {
 	ErrorNotFound     string
 	Home              string
 	Welcome           string
-	Login             string
+	AdminLogin        string
+	ClientLogin       string
 	Signup            string
 	MakeAdmin         string
 	AdminServerError  string

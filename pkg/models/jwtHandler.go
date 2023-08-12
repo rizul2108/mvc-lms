@@ -79,12 +79,12 @@ func TokenMiddleware(next http.Handler) http.Handler {
 		cookie, err := r.Cookie("jwt")
 
 		if err != nil {
-			if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/login" || r.URL.Path == "/signup" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
+			if r.URL.Path == "/" || r.URL.Path == "/home" || r.URL.Path == "/clientLogin" || r.URL.Path == "/adminLogin" || r.URL.Path == "/signup" || r.URL.Path == "/logout" || firstPartOfURL == "static" {
 				next.ServeHTTP(w, r)
 				return
 			} else {
 				clearCookie(w)
-				http.Redirect(w, r, "/login", http.StatusSeeOther)
+				http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 				return
 			}
 		}
@@ -92,7 +92,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 		claims, err := VerifyToken(tokenString)
 		if err != nil {
 			clearCookie(w)
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
+			http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 		}
 		username := claims.Username
 		err = TypeChecker(username, "admin")
@@ -121,7 +121,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			}
 		} else {
 			clearCookie(w)
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
+			http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 			return
 		}
 	})

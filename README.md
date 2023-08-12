@@ -43,7 +43,7 @@ Add the following line:
 Check your_domain_name on your browser
 
 ## Setup using Makefile
-Run command `make` in root directory 
+Run command `make` in root directory.
 To host your website virtually on a custom domain name run these commands :
 ```
 chmod +x ./scripts/virtualHostSetup.sh

@@ -19,7 +19,8 @@ func Start() {
 	r.HandleFunc("/signup", controller.SignUp).Methods("GET")
 	r.HandleFunc("/signup", controller.AddUser).Methods("POST")
 	r.HandleFunc("/login", controller.LoginUser).Methods("POST")
-	r.HandleFunc("/login", controller.LogIn).Methods("GET")
+	r.HandleFunc("/clientLogin", controller.ClientLogIn).Methods("GET")
+	r.HandleFunc("/adminLogin", controller.AdminLogIn).Methods("GET")
 
 	//client Routes
 	r.HandleFunc("/client/profile", controller.Profile).Methods("GET")

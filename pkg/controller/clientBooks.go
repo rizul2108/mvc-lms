@@ -24,13 +24,13 @@ func AddRequest(w http.ResponseWriter, r *http.Request) {
 	bookID := r.FormValue("bookID")
 	cookie, err := r.Cookie("jwt")
 	if err != nil {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 	}
 	ID, err := strconv.Atoi(bookID)
 	tokenString := strings.TrimSpace(cookie.Value)
 	claims, err := models.VerifyToken(tokenString)
 	if err != nil {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 		return
 	}
 

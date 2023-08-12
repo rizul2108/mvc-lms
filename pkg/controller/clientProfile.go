@@ -14,7 +14,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 
 	cookie, err := r.Cookie("jwt")
 	if err != nil {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		http.Redirect(w, r, "/clientLogin", http.StatusSeeOther)
 		return
 	}
 	tokenString := strings.TrimSpace(cookie.Value)

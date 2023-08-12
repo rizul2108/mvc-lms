@@ -8,9 +8,15 @@ import (
 	"net/http"
 )
 
-func LogIn(writer http.ResponseWriter, _ *http.Request) {
+func AdminLogIn(writer http.ResponseWriter, _ *http.Request) {
 	files := views.PutFileNames()
-	t := views.ViewPage(files.Login)
+	t := views.ViewPage(files.AdminLogin)
+	writer.WriteHeader(http.StatusOK)
+	t.Execute(writer, nil)
+}
+func ClientLogIn(writer http.ResponseWriter, _ *http.Request) {
+	files := views.PutFileNames()
+	t := views.ViewPage(files.ClientLogin)
 	writer.WriteHeader(http.StatusOK)
 	t.Execute(writer, nil)
 }
@@ -22,7 +28,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("Password")
 	jwtToken, userType, errorMessage := models.LoginUser(username, password)
 	if errorMessage.Message != "" {
-		t := views.ViewPage(files.Login)
+		t := views.ViewPage(files.AdminLogin)
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, errorMessage)
 	} else {
