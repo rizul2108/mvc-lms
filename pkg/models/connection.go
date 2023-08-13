@@ -4,22 +4,24 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"gopkg.in/yaml.v3"
 	"log"
 	"os"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {
 	DB_USERNAME string `yaml:"DB_USERNAME"`
 	DB_PASSWORD string `yaml:"DB_PASSWORD"`
 	DB_HOST     string `yaml:"DB_HOST"`
+	DB_PORT     string `yaml:"DB_PORT"`
 	DB_NAME     string `yaml:"DB_NAME"`
 }
 
 func dsn(config Config) string {
-	return fmt.Sprintf("%s:%s@tcp(%s)/%s", config.DB_USERNAME, config.DB_PASSWORD, config.DB_HOST, config.DB_NAME)
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", config.DB_USERNAME, config.DB_PASSWORD, config.DB_HOST, config.DB_PORT, config.DB_NAME)
 }
 
 func Connection() (*sql.DB, error) {

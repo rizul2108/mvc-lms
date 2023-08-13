@@ -1,19 +1,24 @@
 # Backend Dockerfile
 FROM golang:1.20.6-alpine
 
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY . /usr/app
+# Copy only the go.mod and go.sum files to improve cache efficiency
+COPY go.mod .
+COPY go.sum .
 
-RUN apk add --update make
+# Download the Go module dependencies
+RUN go mod download
 
-RUN make
-
+# Copy the rest of the application code
 COPY . .
 
 # Build the Go application
 RUN go build -o mvc ./cmd/main.go
 
-EXPOSE 8080
+EXPOSE 9000
 
-CMD ["./mvc"]
+# Create and set the entrypoint to a shell script
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]

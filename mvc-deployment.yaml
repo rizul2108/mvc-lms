@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mvc
+  template:
+    metadata:
+      labels:
+        app: mvc
+    spec:
+      containers:
+        - name: mvc-lms
+          image: rizul2108/mvc-lms:latest
+          ports:
+            - containerPort: 9000
+      volumes:
+          - name: config-volume
+            configMap:
+              name: mvc-config
