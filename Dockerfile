@@ -16,6 +16,7 @@ COPY . .
 # Build the Go application
 RUN go build -o mvc ./cmd/main.go
 
+# Expose port being used
 EXPOSE 9000
 
 # Create and set the entrypoint to a shell script
